@@ -1,0 +1,45 @@
+name: Compliance Gate
+
+# Enforces the shaulnaim.com compliance gate (legal/ACUM + axe WCAG2AA +
+# content integrity + syntax) so the site cannot go live non-compliant.
+#   - On every push to dev, the gate runs as a smoke check.
+#   - On every pull_request targeting main (going live), the gate must pass
+#     before the PR can be merged (enforced via branch protection on main).
+#
+# The gate (scripts/preflight/index.mjs) has no npm dependencies (axe is
+# vendored) and drives system Chrome over CDP via Node's global WebSocket,
+# so we run on a Node version with a stable global WebSocket (Node 22 LTS).
+
+on:
+  push:
+    branches: [dev]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  compliance-gate:
+    name: compliance-gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install Google Chrome
+        id: setup-chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+
+      - name: Export CHROME_PATH
+        run: echo "CHROME_PATH=${{ steps.setup-chrome.outputs.chrome-path }}" >> "$GITHUB_ENV"
+
+      - name: Run compliance gate
+        run: node scripts/preflight/index.mjs
