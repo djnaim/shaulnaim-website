@@ -21,8 +21,13 @@ section{padding:100px 0}
   align-items:center;padding:16px 30px;transition:.3s;background:transparent}
 .nav.scrolled{background:rgba(13,11,12,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .brand{font-family:var(--serif);font-weight:700;font-size:22px}
+.nav nav{display:flex;align-items:center}
 .nav nav a{color:var(--text);text-decoration:none;margin-inline-start:24px;font-size:15px;opacity:.82;transition:.2s}
 .nav nav a:hover{opacity:1;color:var(--red)}
+.lang-toggle{margin-inline-start:24px;background:transparent;border:1px solid var(--line);
+  color:var(--text);border-radius:30px;padding:5px 14px;font-size:13px;font-weight:700;
+  cursor:pointer;transition:.2s;font-family:var(--sans);min-width:46px}
+.lang-toggle:hover{border-color:var(--red);color:var(--red)}
 
 /* hero */
 .hero{position:relative;height:100vh;min-height:620px;display:flex;align-items:flex-end;
