@@ -38,15 +38,15 @@ section{padding:100px 0}
 
 /* hero */
 .hero{position:relative;height:100vh;min-height:620px;display:flex;align-items:flex-end;
-  justify-content:center;text-align:center;overflow:hidden;padding-bottom:13vh}
-.hero-bg{position:absolute;inset:0;background:url('assets/hero-wide.jpg') center 18%/cover;
+  justify-content:center;text-align:center;overflow:hidden;padding-bottom:4vh}
+.hero-bg{position:absolute;inset:0;background:url('assets/hero-wide.jpg') center 0%/cover;
   animation:kenburns 22s ease-out infinite alternate}
 @keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.1)}}
 .hero::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(13,11,12,.5),rgba(13,11,12,.32) 38%,rgba(13,11,12,.95))}
+  background:linear-gradient(180deg,rgba(13,11,12,.5),rgba(13,11,12,.28) 30%,rgba(13,11,12,.55) 60%,rgba(13,11,12,.97))}
 .hero-inner{position:relative;z-index:2;padding:0 20px}
 .kicker{color:var(--red);font-weight:700;letter-spacing:2px;font-size:14px}
-.hero h1{font-size:clamp(56px,10vw,140px);margin:14px 0 4px;text-shadow:0 6px 40px rgba(0,0,0,.6)}
+.hero h1{font-size:clamp(46px,7.5vw,104px);margin:14px 0 4px;text-shadow:0 6px 40px rgba(0,0,0,.6)}
 .hero .sub{font-size:clamp(16px,2.4vw,24px);color:#e7e1dc}
 .hero-cta{margin-top:34px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 .btn{display:inline-block;text-decoration:none;padding:14px 36px;border-radius:40px;
