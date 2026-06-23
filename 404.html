@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex" />
+<title>הדף לא נמצא | שאול נעים</title>
+<meta name="description" content="הדף שחיפשתם לא נמצא באתר שאול נעים. The page you were looking for was not found." />
+<meta name="theme-color" content="#0d0b0c" />
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;700&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="style.css" />
+<style>
+  .nf-wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 60px}
+  .nf-code{font-family:'Frank Ruhl Libre',serif;font-weight:900;font-size:clamp(72px,18vw,180px);line-height:1;color:var(--red);margin:0}
+  .nf-wrap h1{font-size:clamp(28px,5vw,44px);margin:14px 0 10px}
+  .nf-wrap p{color:var(--muted);max-width:520px;margin:0 auto 8px;font-size:18px}
+  .nf-home{display:inline-block;margin-top:30px}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main" data-he="דלג לתוכן" data-en="Skip to content">דלג לתוכן</a>
+
+<header class="nav scrolled" id="nav">
+  <a class="brand" href="index.html" style="color:var(--text);text-decoration:none">שאול נעים</a>
+  <nav aria-label="ניווט ראשי">
+    <a href="index.html" data-he="לעמוד הבית" data-en="Home">לעמוד הבית</a>
+  </nav>
+</header>
+
+<main id="main">
+<section class="nf-wrap">
+  <p class="nf-code" aria-hidden="true">404</p>
+  <h1 data-he="הדף לא נמצא" data-en="Page not found">הדף לא נמצא</h1>
+  <p data-he="מצטערים, הדף שחיפשתם אינו קיים או הועבר. אפשר לחזור לעמוד הבית ולהמשיך משם." data-en="Sorry, the page you were looking for does not exist or has moved. You can head back to the homepage and continue from there.">מצטערים, הדף שחיפשתם אינו קיים או הועבר. אפשר לחזור לעמוד הבית ולהמשיך משם.</p>
+  <a class="btn btn-red nf-home" href="index.html" data-he="לעמוד הבית" data-en="Home">לעמוד הבית</a>
+</section>
+</main>
+
+<footer>
+  <p>שאול נעים &nbsp;·&nbsp; שירי ארץ ישראל</p>
+  <p class="small">© <span id="yr"></span> שאול נעים / Shaul Naim</p>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent=new Date().getFullYear();
+  (function(){
+    var lang=localStorage.getItem('lang')||'he';
+    var html=document.documentElement;
+    html.lang=lang; html.dir=(lang==='en')?'ltr':'rtl';
+    document.querySelectorAll('[data-he]').forEach(function(el){
+      var v=(lang==='en')?el.getAttribute('data-en'):el.getAttribute('data-he');
+      if(v!=null) el.textContent=v;
+    });
+  })();
+</script>
+</body>
+</html>
