@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>הצהרת נגישות | שאול נעים</title>
+<meta name="description" content="הצהרת נגישות לאתר שאול נעים, בהתאם לתקן ישראלי ת&quot;י 5568 ברמה AA (WCAG 2.0 AA)." />
+<meta property="og:title" content="הצהרת נגישות | שאול נעים" />
+<meta property="og:description" content="הצהרת נגישות לאתר שאול נעים" />
+<meta property="og:image" content="https://shaulnaim.com/assets/og.jpg" />
+<meta property="og:url" content="https://shaulnaim.com/accessibility.html" />
+<meta property="og:type" content="website" />
+<meta name="theme-color" content="#0d0b0c" />
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+<style>
+  .a11y-wrap{max-width:820px;margin:0 auto;padding:120px 24px 40px}
+  .a11y-wrap h1{font-size:clamp(38px,7vw,64px);margin-bottom:6px}
+  .a11y-wrap h2{font-size:clamp(24px,4vw,32px);margin:36px 0 12px}
+  .a11y-wrap p{color:var(--muted);margin-bottom:14px;font-size:17px}
+  .a11y-wrap ul{color:var(--muted);margin:0 0 14px;padding-inline-start:22px;font-size:17px}
+  .a11y-wrap li{margin-bottom:8px}
+  .a11y-wrap a{color:var(--red);text-decoration:underline}
+  .a11y-wrap a:hover{opacity:.85}
+  .a11y-meta{color:var(--muted);font-size:15px;margin-top:4px}
+  .a11y-back{display:inline-block;margin-top:34px;font-weight:700}
+  .a11y-coord{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:20px 24px;margin-top:14px}
+  .a11y-coord p{margin-bottom:8px;color:var(--text)}
+  .a11y-coord .role{color:var(--muted);font-size:15px}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">דלג לתוכן</a>
+
+<header class="nav scrolled" id="nav">
+  <a class="brand" href="index.html" style="color:var(--text);text-decoration:none">שאול נעים</a>
+  <nav aria-label="ניווט ראשי">
+    <a href="index.html">חזרה לאתר</a>
+  </nav>
+</header>
+
+<main id="main">
+<article class="a11y-wrap">
+
+  <h1>הצהרת נגישות</h1>
+  <p class="a11y-meta">אתר שאול נעים &nbsp;·&nbsp; shaulnaim.com</p>
+
+  <h2>מחויבות לנגישות</h2>
+  <p>אנו רואים חשיבות רבה במתן שירות שוויוני לכלל הגולשים, ופועלים להנגיש את האתר כך שיתאים לאנשים עם מוגבלות. האתר נבנה ומתוחזק במטרה לעמוד בדרישות תקן ישראלי ת"י 5568 ברמת נגישות AA, המבוסס על הנחיות הנגישות לתכני אינטרנט WCAG 2.0 ברמה AA, וברוח תקנות שוויון זכויות לאנשים עם מוגבלות (התאמות נגישות לשירות), התשע"ג 2013.</p>
+  <p>האתר נמצא בתהליך מתמשך של שיפור והנגשה. הצהרה זו מתארת את ההתאמות שבוצעו ואת המגבלות הידועות, ביושר ובשקיפות. טרם נערכה בדיקת נגישות מקיפה על ידי מורשה נגישות חיצוני, והאתר אינו נושא תעודת הסמכה משפטית בשלב זה; אנו פועלים לעמוד ברמת הנגישות המתוארת כאן.</p>
+
+  <h2>התאמות הנגישות שבוצעו באתר</h2>
+  <ul>
+    <li>ניווט מלא באמצעות מקלדת בכל הקישורים, הכפתורים והרכיבים האינטראקטיביים.</li>
+    <li>קישור "דלג לתוכן" המופיע בעת מעבר במקלדת, כרכיב הראשון בדף.</li>
+    <li>מבנה דף סמנטי עם אזורי תוכן (landmarks): כותרת עליונה, ניווט ראשי, תוכן ראשי וכותרת תחתונה.</li>
+    <li>ניגודיות צבעים העומדת ברמת AA בין הטקסט לרקע.</li>
+    <li>הצגה תקינה של התוכן (reflow) ברוחב מסך של 320 פיקסלים ובהגדלת תצוגה של 200%, ללא אובדן מידע או תפקוד.</li>
+    <li>תמיכה בהעדפת המשתמש להפחתת אנימציות (prefers-reduced-motion): כיבוי אפקטים ותנועה.</li>
+    <li>שמות נגישים (accessible names) ותכונות ARIA לכל הפקדים, כולל הכרזת מצב על מתג השפה.</li>
+    <li>כותרות (title) לנגני המדיה המוטמעים, כך שקוראי מסך מכריזים עליהם.</li>
+    <li>תמיכה מלאה בכיווניות מימין לשמאל (RTL) ובמעבר בין עברית לאנגלית.</li>
+  </ul>
+
+  <h2>מגבלות נגישות ידועות</h2>
+  <p>חלקים מהאתר מסתמכים על נגני מדיה מוטמעים של צד שלישי (כגון YouTube ו-Spotify). לרכיבים אלה רמת נגישות משלהם, שאינה בשליטתנו המלאה. בנוסף, ייתכנו אזורים שעדיין נמצאים בתהליך שיפור והנגשה. אנו ממשיכים לפעול לשיפור מתמיד של נגישות האתר.</p>
+
+  <h2>פנייה בנושא נגישות</h2>
+  <p>אם נתקלתם במכשול נגישות באתר, או שיש לכם בקשה, הערה או הצעה לשיפור, נשמח שתפנו אלינו. אנא ציינו את הדף שבו נתקלתם בבעיה ואת מהות הבעיה, ונטפל בפנייה בהקדם האפשרי.</p>
+
+  <!-- TODO: real coordinator full name needed from owner -->
+  <div class="a11y-coord">
+    <p class="role">רכז/ת נגישות</p>
+    <p>רכז הנגישות</p>
+    <p>דוא"ל: <a href="mailto:hello@shaulnaim.com">hello@shaulnaim.com</a></p>
+    <p>טלפון: <a href="tel:+972522511351">052-251-1351</a></p>
+  </div>
+
+  <h2>עדכון ההצהרה</h2>
+  <p class="a11y-meta">הצהרת נגישות זו עודכנה לאחרונה בתאריך 23.6.2026.</p>
+
+  <a class="a11y-back" href="index.html">חזרה לאתר</a>
+
+</article>
+</main>
+
+<footer>
+  <p>שאול נעים &nbsp;·&nbsp; שירי ארץ ישראל</p>
+  <p class="small">© <span id="yr"></span> שאול נעים / Shaul Naim</p>
+</footer>
+
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>
