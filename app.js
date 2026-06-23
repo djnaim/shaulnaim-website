@@ -73,7 +73,7 @@ function openRelease(i){
   const player = r.youtubeId
     ? `<div class="video-wrap"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/${r.youtubeId}" title="${title}" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe></div>`
     : (r.video ? `<div class="video-wrap" data-src="${r.video}">
-      <img class="poster" src="${r.cover}" alt="${title}" />
+      <img class="poster" src="${r.cover}" alt="${title}" loading="lazy" decoding="async" />
       <button class="play-btn" aria-label="${t.play}">►</button></div>` : '');
   body.innerHTML = `
     ${player}
