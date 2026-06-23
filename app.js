@@ -36,7 +36,9 @@ function applyLang(l){
   document.querySelectorAll('[data-he-aria]').forEach(el=>{
     const v = el.dataset[l + 'Aria']; if(v != null) el.setAttribute('aria-label', v);
   });
-  document.getElementById('langToggle').textContent = (l === 'he') ? 'EN' : 'עב';
+  const lt = document.getElementById('langToggle');
+  lt.textContent = (l === 'he') ? 'EN' : 'עב';
+  lt.setAttribute('aria-pressed', String(l === 'en'));
   renderGrid();
 }
 
@@ -49,6 +51,10 @@ function renderGrid(){
     const title = (lang==='en' && r.titleEn) ? r.titleEn : (coming ? T[lang].soon : r.title);
     const card = document.createElement(coming ? 'div' : 'button');
     card.className = 'card ' + (coming ? 'card-coming' : '');
+    if(!coming){
+      const playLabel = (lang==='he') ? 'נגן/האזן: ' : 'Play: ';
+      card.setAttribute('aria-label', playLabel + title);
+    }
     card.innerHTML = `
       <div class="card-cover" ${coming ? '' : `style="background-image:url('${r.cover}')"`}>
         ${coming ? `<span class="soon">${T[lang].soon}</span>` : '<span class="card-play">►</span>'}
