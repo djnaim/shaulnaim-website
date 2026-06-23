@@ -67,7 +67,7 @@ function openRelease(i){
     r.youtube ? `<a class="chip" href="${r.youtube}" target="_blank" rel="noopener">YouTube</a>`:''
   ].join('');
   const lyrics = r.lyrics ? `<details class="lyrics"><summary>${t.lyrics}</summary>
-    <div class="lyrics-body">${r.lyrics.join('<br/>')}</div></details>` : '';
+    <div class="lyrics-body">${r.lyrics.map(s=>s.replace(/ \/ /g,'<br/>')).join('<br/><br/>')}</div></details>` : '';
   const player = r.youtubeId
     ? `<div class="video-wrap"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/${r.youtubeId}" title="${title}" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe></div>`
     : (r.video ? `<div class="video-wrap" data-src="${r.video}">
