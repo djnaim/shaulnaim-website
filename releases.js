@@ -15,9 +15,9 @@ window.RELEASES = [
     blurb: "הופעה חיה ומרגשת לאחד השירים האהובים בזמר העברי.",
     blurbEn: "A heartfelt live performance of one of the most beloved songs in Hebrew music.",
     cover: "assets/releases/tzipor-ktana-balev/cover.jpg",
-    youtubeId: "5791_y4-eEM",
+    youtubeId: "_cxuXwfBHCs",
     spotify: "https://open.spotify.com/artist/5axEq9NvsVnVoP2zXl4YhD",
-    youtube: "https://youtu.be/5791_y4-eEM",
+    youtube: "https://youtu.be/_cxuXwfBHCs",
     lyrics: [
       "יש לי ציפור קטנה בלב / והיא עושה בי מנגינות / של סתיו ושל אביב חולף / של אלף אהבות קטנות",
       "והיא עושה בי מזמורים / והיא צובעת עלמות / והיא פותרת לשירים / כמעט את כל החלומות",
