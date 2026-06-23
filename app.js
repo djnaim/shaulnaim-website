@@ -56,7 +56,9 @@ function renderGrid(){
 
 // ---------- modal ----------
 const modal = document.getElementById('modal');
+const modalCard = modal.querySelector('.modal-card');
 const body = document.getElementById('modal-body');
+let lastFocused = null;
 function openRelease(i){
   const r = releases[i], t = T[lang];
   const title = (lang==='en' && r.titleEn) ? r.titleEn : r.title;
@@ -77,7 +79,7 @@ function openRelease(i){
     ${player}
     <div class="modal-info">
       <span class="eyebrow">${t.single} · ${r.year||''}</span>
-      <h2>${title}</h2>
+      <h2 id="modal-title">${title}</h2>
       ${composer ? `<p class="credit">${t.words} ${composer}<br/>${t.perf}</p>` : ''}
       ${blurb ? `<p class="blurb">${blurb}</p>` : ''}
       <div class="stream-links">${links}</div>
@@ -90,15 +92,31 @@ function openRelease(i){
     v.src=pl.dataset.src; v.controls=true; v.autoplay=true; v.playsInline=true;
     pl.innerHTML=''; pl.appendChild(v);
   });
+  modalCard.setAttribute('aria-labelledby','modal-title');
   modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
   document.body.style.overflow='hidden';
+  lastFocused = document.activeElement;
+  const x = modalCard.querySelector('.modal-x');
+  if(x) x.focus();
 }
 function closeModal(){
+  if(!modal.classList.contains('open')) return;
   modal.classList.remove('open'); modal.setAttribute('aria-hidden','true');
   document.body.style.overflow=''; body.innerHTML='';
+  if(lastFocused && lastFocused.focus){ lastFocused.focus(); lastFocused = null; }
 }
 modal.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click',closeModal));
-document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
+document.addEventListener('keydown',e=>{
+  if(!modal.classList.contains('open')) return;
+  if(e.key==='Escape'){ closeModal(); return; }
+  if(e.key==='Tab'){
+    const f = modalCard.querySelectorAll('a[href],button,iframe,video,details,summary,[tabindex]:not([tabindex="-1"])');
+    if(!f.length) return;
+    const first = f[0], last = f[f.length-1];
+    if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+    else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+  }
+});
 
 // ---------- init ----------
 document.getElementById('langToggle').addEventListener('click', ()=>applyLang(lang==='he'?'en':'he'));
