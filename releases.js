@@ -6,6 +6,32 @@
 // ============================================================
 window.RELEASES = [
   {
+    slug: "tzipor-ktana-balev",
+    title: "יש לי ציפור קטנה בלב",
+    titleEn: "Yesh Li Tzipor Ktana BaLev",
+    year: 2026,
+    composer: "יוסי בנאי ויגאל בשן",
+    composerEn: "Yossi Banai & Yigal Bashan",
+    blurb: "הופעה חיה ומרגשת לאחד השירים האהובים בזמר העברי.",
+    blurbEn: "A heartfelt live performance of one of the most beloved songs in Hebrew music.",
+    cover: "assets/releases/tzipor-ktana-balev/cover.jpg",
+    youtubeId: "69q3Yqkt60U",
+    spotify: "https://open.spotify.com/artist/5axEq9NvsVnVoP2zXl4YhD",
+    youtube: "https://youtu.be/69q3Yqkt60U",
+    lyrics: [
+      "יש לי ציפור קטנה בלב / והיא עושה בי מנגינות / של סתיו ושל אביב חולף / של אלף אהבות קטנות",
+      "והיא עושה בי מזמורים / והיא צובעת עלמות / והיא פותרת לשירים / כמעט את כל החלומות",
+      "יש לי בלב ציפור קטנה / עם שתי גומות ומנגינה",
+      "יש לי ציפור קטנה בלב / והיא עושה בי סיפורים / של בית חם ובן אוהב / ושל קטעי ילדות יפים",
+      "והיא זוכרת בי כאב / והיא אוספת בי שנים / והיא עושה אותי שלו / אולי היא טעם החיים",
+      "יש לי ציפור קטנה בלב / והיא אולי כל התקוות / ולפעמים אני חושב / שהיא תשובה לאכזבות",
+      "והיא טובה לבנת כנף / איתה אני מרגיש חופשי / והיא יושבת על ענף / בין מיתרי לבי",
+      "יש לי בלב ציפור קטנה / עם שתי גומות ומנגינה"
+    ],
+    status: "released"
+  },
+
+  {
     slug: "ani-gitara",
     title: "אני גיטרה",
     titleEn: "Ani Gitara",
@@ -34,6 +60,5 @@ window.RELEASES = [
   },
 
   // ---- upcoming singles: fill in title/cover/video as each is ready ----
-  { slug: "single-2", title: "בקרוב", year: 2026, status: "coming" },
   { slug: "single-3", title: "בקרוב", year: 2026, status: "coming" }
 ];

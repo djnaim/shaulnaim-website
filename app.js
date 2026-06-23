@@ -68,9 +68,11 @@ function openRelease(i){
   ].join('');
   const lyrics = r.lyrics ? `<details class="lyrics"><summary>${t.lyrics}</summary>
     <div class="lyrics-body">${r.lyrics.join('<br/>')}</div></details>` : '';
-  const player = r.video ? `<div class="video-wrap" data-src="${r.video}">
+  const player = r.youtubeId
+    ? `<div class="video-wrap"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/${r.youtubeId}" title="${title}" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe></div>`
+    : (r.video ? `<div class="video-wrap" data-src="${r.video}">
       <img class="poster" src="${r.cover}" alt="${title}" />
-      <button class="play-btn" aria-label="${t.play}">►</button></div>` : '';
+      <button class="play-btn" aria-label="${t.play}">►</button></div>` : '');
   body.innerHTML = `
     ${player}
     <div class="modal-info">
@@ -81,7 +83,7 @@ function openRelease(i){
       <div class="stream-links">${links}</div>
       ${lyrics}
     </div>`;
-  const pl = body.querySelector('.video-wrap');
+  const pl = body.querySelector('.video-wrap[data-src]');
   if(pl) pl.addEventListener('click', ()=>{
     if(pl.dataset.loaded) return; pl.dataset.loaded='1';
     const v=document.createElement('video');
