@@ -28,6 +28,9 @@ function applyLang(l){
   document.querySelectorAll('[data-he]').forEach(el=>{
     const v = el.dataset[l]; if(v != null) el.textContent = v;
   });
+  document.querySelectorAll('[data-he-aria]').forEach(el=>{
+    const v = el.dataset[l + 'Aria']; if(v != null) el.setAttribute('aria-label', v);
+  });
   document.getElementById('langToggle').textContent = (l === 'he') ? 'EN' : 'עב';
   renderGrid();
 }

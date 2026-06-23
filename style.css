@@ -124,6 +124,7 @@ h2{font-size:clamp(34px,5vw,52px)}
 /* contact */
 .contact{text-align:center}
 .contact .btn{margin-top:6px;font-family:var(--sans)}
+.contact-links{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:center}
 .social{margin-top:26px;display:flex;gap:24px;justify-content:center}
 .social a{color:var(--muted);text-decoration:none;transition:.2s}
 .social a:hover{color:var(--red)}
