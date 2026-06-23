@@ -15,7 +15,7 @@ window.RELEASES = [
     cover: "assets/releases/ani-gitara/cover.jpg",
     video: "assets/releases/ani-gitara/video.mp4",
     spotify: "https://open.spotify.com/artist/5axEq9NvsVnVoP2zXl4YhD",
-    youtube: "https://www.youtube.com/@ShaulNaimMusic",
+    youtube: "https://www.youtube.com/@ShaulNaimOfficial",
     lyrics: [
       "אני גיטרה / הרוח מנגן עלי / בחילופי עונות",
       "אני גיטרה / מישהו פורט עלי / בחילופי המנגינות",
