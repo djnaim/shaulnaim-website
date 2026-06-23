@@ -41,5 +41,12 @@ jobs:
       - name: Export CHROME_PATH
         run: echo "CHROME_PATH=${{ steps.setup-chrome.outputs.chrome-path }}" >> "$GITHUB_ENV"
 
+      - name: Allow Chrome sandbox (unprivileged user namespaces)
+        # Ubuntu 24.04 (ubuntu-latest) restricts unprivileged user namespaces
+        # via AppArmor, which makes Chrome's sandbox fail to launch. The gate's
+        # accessibility check spawns Chrome WITHOUT --no-sandbox by design, so
+        # we relax the sysctl on the runner instead of changing the gate code.
+        run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 || true
+
       - name: Run compliance gate
         run: node scripts/preflight/index.mjs
