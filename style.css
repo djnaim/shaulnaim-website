@@ -25,10 +25,10 @@ section{padding:100px 0}
 
 /* nav */
 .nav{position:fixed;top:0;inset-inline:0;z-index:50;display:flex;justify-content:space-between;
-  align-items:center;padding:16px 30px;transition:.3s;background:transparent}
+  align-items:center;flex-wrap:wrap;row-gap:6px;padding:16px 30px;transition:.3s;background:transparent}
 .nav.scrolled{background:rgba(13,11,12,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .brand{font-family:var(--serif);font-weight:700;font-size:22px;white-space:nowrap}
-.nav nav{display:flex;align-items:center}
+.nav nav{display:flex;align-items:center;flex-wrap:wrap;justify-content:flex-end;row-gap:4px}
 .nav nav a{color:var(--text);text-decoration:none;margin-inline-start:24px;font-size:15px;opacity:.82;transition:.2s;white-space:nowrap}
 .nav nav a:hover{opacity:1;color:var(--red)}
 .lang-toggle{margin-inline-start:24px;background:transparent;border:1px solid var(--line);
