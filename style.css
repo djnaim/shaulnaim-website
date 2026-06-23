@@ -155,3 +155,18 @@ footer .small{font-size:13px;margin-top:8px;opacity:.85}
   .single-text{text-align:center}
   .stream-links,.single-text .eyebrow{justify-content:center}
 }
+
+/* reduced motion (WCAG 2.3.3) */
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{
+    animation-duration:.001ms !important;animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;scroll-behavior:auto !important}
+  /* never leave reveal content invisible if the observer/animation is suppressed */
+  .reveal,.reveal.in{opacity:1 !important;transform:none !important}
+  .hero-bg{animation:none !important;transform:none !important}
+  .scroll-hint{animation:none !important}
+  .modal-card{animation:none !important}
+  .card:hover .card-cover,.card:hover .card-play,.btn-red:hover,
+  .video-wrap:hover .play-btn{transform:none !important}
+}
