@@ -1,5 +1,5 @@
 :root{
-  --red:#e23b34; --bg:#0d0b0c; --bg2:#141011; --panel:#1a1516;
+  --red:#e6453e; --red-btn:#d8362f; --bg:#0d0b0c; --bg2:#141011; --panel:#1a1516;
   --text:#f5f1ee; --muted:#a89f9a; --line:#241f20;
   --serif:'Frank Ruhl Libre',serif; --sans:'Heebo',Arial,sans-serif;
 }
@@ -51,7 +51,7 @@ section{padding:100px 0}
 .hero-cta{margin-top:34px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 .btn{display:inline-block;text-decoration:none;padding:14px 36px;border-radius:40px;
   font-weight:700;font-size:16px;transition:.22s;cursor:pointer}
-.btn-red{background:var(--red);color:#fff}
+.btn-red{background:var(--red-btn);color:#fff}
 .btn-red:hover{transform:translateY(-2px);box-shadow:0 12px 34px rgba(226,59,52,.42)}
 .btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.25)}
 .btn-ghost:hover{background:rgba(255,255,255,.16)}
@@ -92,7 +92,7 @@ h2{font-size:clamp(34px,5vw,52px)}
 .lyrics summary{cursor:pointer;color:var(--muted);font-weight:500;list-style:none}
 .lyrics summary::-webkit-details-marker{display:none}
 .lyrics summary::before{content:"+ ";color:var(--red)}
-.lyrics[open] summary::before{content:"– "}
+.lyrics[open] summary::before{content:"- "}
 .lyrics-body{margin-top:14px;color:#d8d2cd;line-height:1.9;text-align:center;direction:rtl}
 
 /* video player (click to load) */
@@ -131,7 +131,7 @@ h2{font-size:clamp(34px,5vw,52px)}
 
 /* footer */
 footer{text-align:center;padding:50px 24px;border-top:1px solid var(--line);color:var(--muted)}
-footer .small{font-size:13px;margin-top:8px;opacity:.7}
+footer .small{font-size:13px;margin-top:8px;opacity:.85}
 
 /* modal */
 .modal{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:24px}
