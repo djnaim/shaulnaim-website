@@ -25,9 +25,9 @@ section{padding:100px 0}
 .nav nav a:hover{opacity:1;color:var(--red)}
 
 /* hero */
-.hero{position:relative;height:100vh;min-height:620px;display:flex;align-items:center;
-  justify-content:center;text-align:center;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:url('assets/hero.jpg') center/cover;
+.hero{position:relative;height:100vh;min-height:620px;display:flex;align-items:flex-end;
+  justify-content:center;text-align:center;overflow:hidden;padding-bottom:13vh}
+.hero-bg{position:absolute;inset:0;background:url('assets/hero-wide.jpg') center 18%/cover;
   animation:kenburns 22s ease-out infinite alternate}
 @keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.1)}}
 .hero::after{content:"";position:absolute;inset:0;
