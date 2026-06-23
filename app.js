@@ -21,6 +21,11 @@ const T = {
 let lang = localStorage.getItem('lang') || 'he';
 const releases = window.RELEASES || [];
 
+// ACUM compliance: the singles are covers, so reproducing their lyrics on the
+// site needs an ACUM/author license. Lyrics display is OFF until that is
+// confirmed. Flip to true ONLY once ACUM lyric rights are in place.
+const LYRICS_LICENSED = false;
+
 function applyLang(l){
   lang = l; localStorage.setItem('lang', l);
   document.documentElement.lang = l;
@@ -71,7 +76,7 @@ function openRelease(i){
     r.spotify ? `<a class="chip" href="${r.spotify}" target="_blank" rel="noopener">Spotify</a>`:'',
     r.youtube ? `<a class="chip" href="${r.youtube}" target="_blank" rel="noopener">YouTube</a>`:''
   ].join('');
-  const lyrics = r.lyrics ? `<details class="lyrics"><summary>${t.lyrics}</summary>
+  const lyrics = (LYRICS_LICENSED && r.lyrics) ? `<details class="lyrics"><summary>${t.lyrics}</summary>
     <div class="lyrics-body">${r.lyrics.map(s=>s.replace(/ \/ /g,'<br/>')).join('<br/><br/>')}</div></details>` : '';
   const player = r.youtubeId
     ? `<div class="video-wrap"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/${r.youtubeId}" title="${title}" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe></div>`
