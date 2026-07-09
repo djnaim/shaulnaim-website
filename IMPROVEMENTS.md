@@ -63,3 +63,4 @@ performance & accessibility · the ONE signature moment · negative space & rest
 ## Ledger (append one line per cycle: `#N HH:MM · lens · change · verdict[kept/reverted]`)
 - (cycles are appended below)
 - #1 14:53 · color depth (hero) · flat gold field to a golden-hour radial gradient (--gold to new --gold-deep #C6871A) + crisper ignite halo; ink AA 4.87 min, no scroll, no errors · KEPT
+- #2 14:58 · layout / anti-template · flushed ALL section headers to the leading edge (consistent with the strong Shows module) + pom thread-tick on each eyebrow tying it to the scarlet edge; no regressions · KEPT
