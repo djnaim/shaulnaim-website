@@ -158,15 +158,15 @@ section{padding:116px 0;position:relative}
   align-self:flex-start;border-bottom:2px solid var(--ink);padding-bottom:4px;position:relative}
 .hero .eyebrow{align-self:flex-start;margin:20px 0 8px;font-size:12px;font-weight:600;
   text-transform:uppercase;color:var(--ink);opacity:.8}
-.marquee{font-family:var(--display);font-weight:400;line-height:.98;direction:rtl;
-  font-size:clamp(48px,11vw,150px);margin:6px 0 4px;
+.marquee{font-family:var(--display);font-weight:400;line-height:1.12;direction:rtl;
+  font-size:clamp(46px,10.5vw,144px);margin:6px 0 4px;padding-block-end:.08em;
   width:100vw;margin-inline-start:calc(50% - 50vw);padding-inline-end:40px;text-align:start}
 .marquee .word{display:inline-block;color:rgba(14,42,59,.24);transition:color .55s ease,text-shadow .55s ease;
   margin-inline-start:.22em}
 /* ignite: word snaps to full ink and catches a golden raking-light halo (AA on gold) */
 .marquee .word.lit{color:var(--ink);text-shadow:0 0 18px rgba(255,244,214,.85),0 0 5px rgba(244,194,75,.75)}
 .hero .attribution{align-self:flex-start;font-family:var(--serif);font-style:italic;font-size:15px;
-  letter-spacing:0;text-transform:none;color:var(--ink);opacity:.66;margin-top:6px}
+  letter-spacing:0;text-transform:none;color:var(--ink);opacity:.66;margin-top:16px}
 .hero .sub{align-self:flex-start;font-family:var(--serif);font-weight:500;font-size:clamp(17px,2.2vw,23px);
   color:var(--ink);max-width:620px;margin-top:22px;line-height:1.5}
 .hero-cta{display:flex;gap:0;margin-top:34px;align-self:flex-start}
