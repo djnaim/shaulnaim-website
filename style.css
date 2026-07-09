@@ -325,14 +325,14 @@ a.card:hover .card-title{background-position:-60% 0}
 .embed{margin:0 auto;max-width:760px;border:1px solid var(--brass);outline:1px solid rgba(154,123,63,.35);outline-offset:5px}
 
 /* ---------- contact: the colophon ---------- */
-.contact{background:var(--ink);color:var(--cream);text-align:center}
+.contact{background:var(--ink);color:var(--cream);text-align:start}
 .contact .section-head .eyebrow{color:var(--glow)}
 .contact h2{color:var(--cream)}
 .contact .section-sub{color:var(--sand)}
-.contact-links{display:flex;flex-wrap:wrap;gap:0;justify-content:center;align-items:stretch;margin-top:4px}
+.contact-links{display:flex;flex-wrap:wrap;gap:0;justify-content:flex-start;align-items:stretch;margin-top:4px}
 .contact-links .btn:first-child{border-inline-end:none}
 .imprint{font-family:var(--sans);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--sand);margin-top:30px}
-.social{margin-top:18px;display:flex;gap:22px;justify-content:center;font-family:var(--sans);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+.social{margin-top:18px;display:flex;gap:22px;justify-content:flex-start;font-family:var(--sans);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
 .social a{color:var(--sand);text-decoration:none;transition:.2s}
 .social a:hover{color:var(--glow)}
 .seal-here{position:absolute;right:-7px;bottom:0;width:16px;height:16px;border-radius:50%;background:var(--pom);
