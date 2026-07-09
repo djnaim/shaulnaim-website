@@ -12,6 +12,7 @@
   --stone:#ECDFBE;    /* page paper (albums/about/music); ink 11.23:1 AAA */
   --stone-2:#E4D4AC;  /* deeper stone band for the shows table-of-contents; ink 10.13:1 AAA */
   --gold:#E3A21A;     /* hero midday field, large fields ONLY (never text/keyline) */
+  --gold-deep:#C6871A; /* deeper gold shade for hero golden-hour depth (ink contrast only improves) */
   --glow:#F4C24B;     /* the ONE light: sun-bead, ignite halo, headings/ordinals on ink, focus core */
   --ink:#0E2A3B;      /* night ground + primary body text on paper + ignited karaoke word */
   --ink-2:#123246;    /* raised ink card on the singles wall */
@@ -115,7 +116,8 @@ section{padding:116px 0;position:relative}
 .on-ink .btn-outline:hover{background:var(--stone);color:var(--ink)}
 
 /* ---------- hero: solid gold panel, karaoke marquee ---------- */
-.hero{background:var(--gold);color:var(--ink);min-height:100vh;display:flex;flex-direction:column;
+.hero{background:radial-gradient(135% 95% at 82% 8%, var(--gold), var(--gold-deep) 80%);
+  color:var(--ink);min-height:100vh;display:flex;flex-direction:column;
   justify-content:center;padding:150px 40px 96px;overflow:hidden;position:relative}
 .hero.cropped::before{inset:22px;z-index:3}
 /* the raking-light band that crosses the poster */
@@ -147,7 +149,7 @@ section{padding:116px 0;position:relative}
 .marquee .word{display:inline-block;color:rgba(14,42,59,.24);transition:color .55s ease,text-shadow .55s ease;
   margin-inline-start:.22em}
 /* ignite: word snaps to full ink and catches a golden raking-light halo (AA on gold) */
-.marquee .word.lit{color:var(--ink);text-shadow:0 0 26px rgba(255,244,214,.95),0 0 9px rgba(244,194,75,.9),0 1px 0 rgba(166,50,42,.35)}
+.marquee .word.lit{color:var(--ink);text-shadow:0 0 18px rgba(255,244,214,.85),0 0 5px rgba(244,194,75,.75)}
 .hero .attribution{align-self:flex-start;font-family:var(--sans);font-size:12px;letter-spacing:.12em;
   text-transform:uppercase;color:var(--ink);opacity:.75;margin-top:14px}
 .hero .sub{align-self:flex-start;font-family:var(--serif);font-weight:500;font-size:clamp(17px,2.2vw,23px);

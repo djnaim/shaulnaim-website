@@ -52,5 +52,14 @@ performance & accessibility · the ONE signature moment · negative space & rest
 - **Respect this ledger** — do not undo accepted good work; do not oscillate between two states.
 - One coherent change per cycle. Ambition in service of quality, never recklessness.
 
+## Critic queue (outside-eye findings — work these high-value items across cycles)
+- **HARNESS FIX (do first):** fullPage screenshots miss `loading="lazy"` images, so critics see false "empty frames." Before any fullPage capture, scroll the page top→bottom to trigger lazy loads (or screenshot per-section after scrollIntoView). Verify images actually render before trusting an "empty" critique.
+- **Kill center-alignment (biggest real win):** every section is the same centered stamp (kicker / centered H2 / centered sub). Flush section headers to the leading edge (`text-align:start`, right in RTL); build an asymmetric grid; make the scarlet **thread load-bearing** and hang the ordinal medallions ON it. The Shows module is already the strongest section — use it as the template for the others.
+- **Vary section vertical rhythm** (alternate generous vs tighter padding) so the scroll has cadence, not a metronome.
+- **Hero:** paint the karaoke AT-REST state so the concept reads before animation (first 2-3 words lit on load); collapse the 3 competing sub-lines (kicker / attribution / subtitle) into 2 clear tiers; let the headline own the viewport.
+- **Motifs at section scale:** medallion on every section header, crop-marks framing every plate, thread visible throughout — make them the grammar, not easter eggs.
+- **No empty frames ever:** every image slot needs a real "plate-not-yet-pressed" state (solid ink + embossed registration marks + a set glyph), never a 1px outline around nothing. Coming-soon single card must match the real cards' spec.
+
 ## Ledger (append one line per cycle: `#N HH:MM · lens · change · verdict[kept/reverted]`)
 - (cycles are appended below)
+- #1 14:53 · color depth (hero) · flat gold field to a golden-hour radial gradient (--gold to new --gold-deep #C6871A) + crisper ignite halo; ink AA 4.87 min, no scroll, no errors · KEPT
