@@ -345,9 +345,9 @@ a.card:hover .card-title{background-position:-60% 0}
 /* centered framed letterpress colophon plate (turns the void into a deliberate object) */
 .contact .container{max-width:820px;border:1px solid var(--brass);
   outline:1px solid rgba(124,144,198,.35);outline-offset:7px;padding:clamp(44px,6vw,72px) clamp(28px,5vw,60px)}
-/* the waving Israeli flag crowns the colophon (white field pops on the navy plate) */
-.flag-stage{display:flex;justify-content:center;margin:0 auto 30px}
-.flag-stage canvas{width:min(420px,74vw);aspect-ratio:3/2;height:auto;display:block}
+/* the waving Israeli flag flies above the nameplate on the hero */
+.flag-stage{display:flex;justify-content:center;margin:0 auto 10px}
+.flag-stage canvas{width:min(320px,62vw);aspect-ratio:3/2;height:auto;display:block}
 .contact .section-head{text-align:center;margin-bottom:26px}
 .contact .section-head .eyebrow{color:var(--glow);padding-inline-start:0}
 .contact .section-head .eyebrow::before{display:none}
