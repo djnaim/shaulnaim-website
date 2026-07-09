@@ -1,12 +1,12 @@
 /* ============================================================
-   Shaul Naim — "כרזה ששרה / The Song-Poster"
+   Shaul Naim - "כרזה ששרה / The Song-Poster"
    A pioneer Eretz-Yisrael song-pamphlet you scroll as one day of song.
    Palette "Degel": the Israeli flag - white field + flag blue (#0038B8) + navy.
    White light sections alternate with flag-blue/navy dark sections.
    Signature: the sing-along headline that ignites word by word.
    ============================================================ */
 :root{
-  /* ---- COLOR FOUNDATION: "Degel" — the Israeli flag (white + tekhelet blue), WCAG-verified ----
+  /* ---- COLOR FOUNDATION: "Degel" - the Israeli flag (white + tekhelet blue), WCAG-verified ----
      White is the field; Israeli-flag blue #0038B8 is the one saturated hue; navy carries depth
      and text. Token NAMES kept from the previous system so every component inherits. */
   --stone:#FFFFFF;    /* white page / light sections; navy text 16:1 AAA */
@@ -159,12 +159,12 @@ section{padding:116px 0;position:relative;scroll-margin-top:96px}
 .hero .eyebrow{align-self:flex-start;margin:20px 0 8px;font-size:12px;font-weight:600;
   text-transform:uppercase;color:var(--ink);opacity:.8}
 .marquee{font-family:var(--display);font-weight:400;line-height:1.12;direction:rtl;
-  font-size:clamp(46px,10.5vw,144px);margin:6px 0 4px;padding-block-end:.08em;
-  width:100vw;margin-inline-start:calc(50% - 50vw);padding-inline-end:40px;text-align:start}
-.marquee .word{display:inline-block;color:rgba(10,30,74,.24);transition:color .55s ease,text-shadow .55s ease;
+  font-size:clamp(44px,9.6vw,132px);margin:6px 0 4px;padding-block-end:.1em;
+  width:100vw;margin-inline-start:calc(50% - 50vw);padding-inline:clamp(20px,5vw,72px);text-align:start}
+/* the whole Psalm rests readable in navy; a flag-blue highlight travels across it (sing-along ball) */
+.marquee .word{display:inline-block;color:var(--ink);transition:color .4s ease,text-shadow .4s ease,transform .4s ease;
   margin-inline-start:.22em}
-/* ignite: word snaps to full ink and catches a golden raking-light halo (AA on gold) */
-.marquee .word.lit{color:var(--pom);text-shadow:0 0 20px rgba(0,56,184,.35),0 0 6px rgba(59,91,192,.5)}
+.marquee .word.lit{color:var(--pom);text-shadow:0 0 26px rgba(0,56,184,.5),0 0 9px rgba(0,56,184,.6);transform:translateY(-2px)}
 .hero .attribution{align-self:flex-start;font-family:var(--serif);font-style:normal;font-size:15px;
   letter-spacing:0;text-transform:none;color:var(--ink);opacity:.7;margin-top:16px}
 .hero .sub{align-self:flex-start;font-family:var(--serif);font-weight:500;font-size:clamp(17px,2.2vw,23px);

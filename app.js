@@ -1,5 +1,10 @@
 document.getElementById('yr').textContent = new Date().getFullYear();
 
+// ACUM / music-rights gate: cover-song lyrics stay OFF site-wide until ACUM lyric
+// rights are confirmed by the owner. detail.js reads the same guard for leaf pages.
+const LYRICS_LICENSED = false;
+if (LYRICS_LICENSED) { /* lyric blocks would render only once rights are cleared */ }
+
 // nav background on scroll
 const nav = document.getElementById('nav');
 const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
@@ -192,21 +197,19 @@ function initKaraoke(){
   if(!m) return;
   const words = [...m.querySelectorAll('.word')];
   if(!words.length) return;
-  const ANCHOR = 3; // first words stay lit so the sing-along concept reads even at rest / in OG previews
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches){ words.forEach(w=>w.classList.add('lit')); return; }
-  words.slice(0, ANCHOR).forEach(w=>w.classList.add('lit')); // paint the at-rest state immediately on load
-  let running = false;
-  function sweep(){
-    if(running) return; running = true;
-    words.forEach((w,i)=> setTimeout(()=>w.classList.add('lit'), i*180));
-    const hold = words.length*180 + 2800;
-    setTimeout(()=>{
-      words.forEach((w,i)=>{ if(i >= ANCHOR) w.classList.remove('lit'); }); // keep the anchor words lit between sweeps
-      running = false;
-      setTimeout(sweep, 650);
-    }, hold);
+  // the whole Psalm rests readable in navy (CSS default); a small flag-blue highlight
+  // travels across it like a sing-along ball, one word at a time, then loops.
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){ words.slice(0,3).forEach(w=>w.classList.add('lit')); return; }
+  const WIN = 2;        // words glowing at once (a short travelling window)
+  const STEP = 300;     // ms the ball dwells per word
+  let i = 0;
+  function tick(){
+    words.forEach((w,k)=> w.classList.toggle('lit', k > i - WIN && k <= i));
+    i++;
+    if(i < words.length + WIN){ setTimeout(tick, STEP); }
+    else { setTimeout(()=>{ words.forEach(w=>w.classList.remove('lit')); i = 0; setTimeout(tick, 1100); }, 800); }
   }
-  sweep();
+  tick();
 }
 
 // ---------- the scarlet thread's sun-bead follows scroll ----------

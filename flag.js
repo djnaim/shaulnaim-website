@@ -1,5 +1,5 @@
 /*!
- * IsraeliFlag — self-contained, dependency-free waving Israeli-flag cloth simulation.
+ * IsraeliFlag - self-contained, dependency-free waving Israeli-flag cloth simulation.
  *
  * Usage:
  *   <canvas id="flag" style="width:480px;height:360px"></canvas>
@@ -273,7 +273,7 @@
       }
     }
 
-    // Perspective projection (device px) — returns screen x/y for a vertex.
+    // Perspective projection (device px) - returns screen x/y for a vertex.
     function projX(id, cxp) { var f = 900 * dpr; return cxp + (px[id] - cxp) * f / (f - pz[id]); }
     function projY(id, cyp) { var f = 900 * dpr; return cyp + (py[id] - cyp) * f / (f - pz[id]); }
 
