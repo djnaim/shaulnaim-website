@@ -376,18 +376,15 @@ footer .small a:hover{color:var(--pom-700)}
 
 /* ---------- detail pages ---------- */
 .detail-panel{padding:150px 30px 60px;color:var(--ink);position:relative}
-.detail-panel.hue-gold{background:var(--gold)}
-.detail-panel.hue-stone{background:var(--stone)}
-.detail-panel.hue-euc{background:var(--euc);color:var(--cream)}
-.detail-panel.hue-tek{background:var(--tek);color:var(--cream)}
-.detail-panel.hue-ink{background:var(--ink);color:var(--cream)}
-.detail-panel.hue-pom{background:var(--pom);color:var(--cream)}
+/* Bright direction: every detail title panel is a WHITE field with navy ink (the
+   per-item colour lives only in the flag-blue eyebrow + the scarlet thread). */
+.detail-panel.hue-gold,.detail-panel.hue-stone,.detail-panel.hue-euc,
+.detail-panel.hue-tek,.detail-panel.hue-ink,.detail-panel.hue-pom{background:var(--stone);color:var(--ink)}
 .detail-inner{max-width:860px;margin:0 auto}
 .back-link{display:inline-flex;align-items:center;gap:8px;color:inherit;opacity:.75;text-decoration:none;
   font-size:12px;text-transform:uppercase;font-weight:600;margin-bottom:26px;transition:.2s}
 .back-link:hover{opacity:1;color:var(--pom)}
-.detail-panel.hue-ink .back-link:hover,.detail-panel.hue-euc .back-link:hover,.detail-panel.hue-tek .back-link:hover{color:var(--glow)}
-.detail-panel .eyebrow{display:block;font-size:12px;font-weight:600;text-transform:uppercase;margin-bottom:12px;opacity:.8}
+.detail-panel .eyebrow{display:block;font-size:12px;font-weight:600;text-transform:uppercase;margin-bottom:12px;color:var(--pom)}
 .detail-panel h1{font-family:var(--display);font-weight:400;font-size:clamp(38px,7vw,86px);line-height:1;margin-bottom:6px}
 .detail-body{background:var(--stone);color:var(--ink);padding:70px 30px 96px}
 .detail-body .inner{max-width:760px;margin:0 auto}
@@ -408,8 +405,8 @@ footer .small a:hover{color:var(--pom-700)}
 .detail-body .video-wrap{margin:0 0 30px;outline-color:rgba(124,144,198,.4)}
 .detail-body .stream-links{display:flex;gap:0;flex-wrap:wrap;margin-bottom:8px}
 .chip{font-family:var(--sans);font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;
-  background:var(--ink);color:var(--stone);text-decoration:none;padding:13px 30px;border:2px solid var(--ink);transition:.2s}
-.chip:hover{background:transparent;color:var(--ink)}
+  background:transparent;color:var(--ink);text-decoration:none;padding:13px 30px;border:2px solid var(--ink);transition:.2s}
+.chip:hover{background:var(--ink);color:var(--stone)}
 .detail-body .shows-cta{margin-top:34px}
 .lyrics{margin-top:14px;border-top:1px solid var(--brass);padding-top:14px}
 .lyrics summary{cursor:pointer;font-family:var(--sans);letter-spacing:.1em;text-transform:uppercase;font-size:12px;color:var(--stone-soft);list-style:none}
