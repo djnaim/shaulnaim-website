@@ -204,12 +204,29 @@ function initThreadBead(){
   update();
 }
 
+// ---------- mobile menu (injected, a11y) ----------
+function initMobileNav(){
+  const bar = document.getElementById('nav'); if(!bar || bar.querySelector('.nav-toggle')) return;
+  const nav = bar.querySelector('nav');
+  const btn = document.createElement('button');
+  btn.className = 'nav-toggle';
+  btn.setAttribute('aria-expanded','false');
+  btn.setAttribute('aria-label', lang==='he' ? 'תפריט' : 'Menu');
+  btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
+  bar.appendChild(btn);
+  const close = ()=>{ bar.classList.remove('open'); btn.setAttribute('aria-expanded','false'); };
+  btn.addEventListener('click', ()=>{ const open = bar.classList.toggle('open'); btn.setAttribute('aria-expanded', String(open)); });
+  nav && nav.querySelectorAll('a').forEach(a=>a.addEventListener('click', close));
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') close(); });
+}
+
 // ---------- init ----------
 document.getElementById('langToggle').addEventListener('click', ()=>applyLang(lang==='he'?'en':'he'));
 applyLang(lang);
 requestAnimationFrame(()=>document.querySelector('.hero')?.classList.add('entered'));
 initKaraoke();
 initThreadBead();
+initMobileNav();
 
 // the scarlet thread stamps its seal when you reach the colophon
 const seal = document.querySelector('.seal-here');
