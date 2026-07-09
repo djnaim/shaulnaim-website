@@ -38,6 +38,27 @@ function applyLang(l){
   renderAlbums();
   renderShows();
   renderVideos();
+  init3DTilt();
+}
+
+// ---------- 3D: cards lean toward the cursor with real perspective depth ----------
+function init3DTilt(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if(!matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+  document.querySelectorAll('.album-card, a.card, .video-item').forEach(el=>{
+    if(el.dataset.tilt) return; el.dataset.tilt = '1'; el.classList.add('tilt');
+    el.addEventListener('pointermove', e=>{
+      const r = el.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - .5;
+      const py = (e.clientY - r.top) / r.height - .5;
+      el.style.setProperty('--ry', (px * 13).toFixed(2) + 'deg');
+      el.style.setProperty('--rx', (-py * 13).toFixed(2) + 'deg');
+      el.style.setProperty('--tz', '22px');
+    });
+    const rest = ()=>{ el.style.setProperty('--rx','0deg'); el.style.setProperty('--ry','0deg'); el.style.setProperty('--tz','0px'); };
+    el.addEventListener('pointerleave', rest);
+    el.addEventListener('blur', rest, true);
+  });
 }
 
 // ---------- albums: flagship covers, each links to its own page ----------
