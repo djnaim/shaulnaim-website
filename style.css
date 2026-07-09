@@ -338,7 +338,9 @@ a.card:hover .card-title{background-position:-60% 0}
 /* ---------- music ---------- */
 .music{background:var(--stone);color:var(--ink);text-align:start}
 .music .section-head{text-align:start}
-.embed{margin:0;max-width:760px;border:1px solid var(--brass);outline:1px solid rgba(124,144,198,.35);outline-offset:5px}
+/* navy "listening plate" contains Spotify's dark player so it reads as a deliberate object on the white field */
+.embed{margin:0;max-width:760px;background:var(--ink);padding:16px;border:1px solid var(--brass);outline:1px solid rgba(124,144,198,.35);outline-offset:5px}
+.embed iframe{display:block}
 
 /* ---------- contact: the colophon ---------- */
 .contact{background:var(--ink);color:var(--cream);text-align:center}
