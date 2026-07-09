@@ -212,7 +212,7 @@
     function simulate(dt) {
       t += dt;
       var damping = 0.982;
-      var g = 62 * dpr;                       // gravity (device px / s^2)
+      var g = 30 * dpr;                       // gravity (device px / s^2) - light, so wind holds the flag out
       var wind = o.windStrength;
       var n = cols * rows;
 
@@ -229,12 +229,13 @@
           var nx = px[id] / (120 * dpr);
           var ny = py[id] / (120 * dpr);
           var turb = turbulence(nx, ny, t);
-          var gust = 0.6 + 0.55 * Math.sin(t * 0.6 + frac * 2.0);
+          var gust = 0.82 + 0.24 * Math.sin(t * 0.6 + frac * 2.0);   // never falls to a dead calm
 
-          // Wind pushes mostly along +z (billow toward/away viewer) and +x.
-          var az = wind * (150 * dpr) * whip * gust * (0.7 + 0.6 * turb);
-          var ax = wind * (44 * dpr) * whip * (0.5 + 0.5 * turb);
-          var ay = g + wind * (10 * dpr) * whip * Math.sin(t * 1.3 + turb);
+          // Strong, steady +x wind holds the flag out taut (dominates gravity);
+          // a gentler +z term gives a rolling billow rather than a violent fold.
+          var ax = wind * (118 * dpr) * whip * (0.78 + 0.22 * turb);
+          var az = wind * (64 * dpr) * whip * gust * (0.6 + 0.4 * turb);
+          var ay = g + wind * (7 * dpr) * whip * Math.sin(t * 1.3 + turb);
 
           // Verlet: x' = x + (x - xo)*damping + a*dt^2
           var vx = (px[id] - ox[id]) * damping;
@@ -269,6 +270,27 @@
           } else {
             px[a] += mvx * 2; py[a] += mvy * 2; pz[a] += mvz * 2;
           }
+        }
+      }
+
+      // Anti-collapse envelope: keep every vertex inside a flag-shaped box so a
+      // wind lull, resize, or instability can NEVER fold the cloth into a rag.
+      // Limits are generous, so in a normal breeze they almost never engage.
+      var zLim = flagW * 0.40;
+      var topLim = flagTop - flagH * 0.30;
+      var botLim = flagTop + flagH * 1.30;
+      for (var jc = 0; jc < rows; jc++) {
+        for (var ic = 1; ic < cols; ic++) {          // column 0 is pinned to the pole
+          var idc = idx(ic, jc);
+          var fr = ic / (cols - 1);
+          var minX = flagLeft + fr * flagW * 0.55;   // free edge can't curl back past 55% extension
+          var maxX = flagLeft + flagW + flagW * 0.10;
+          if (px[idc] < minX) px[idc] = minX;
+          else if (px[idc] > maxX) px[idc] = maxX;
+          if (py[idc] < topLim) py[idc] = topLim;
+          else if (py[idc] > botLim) py[idc] = botLim;
+          if (pz[idc] > zLim) pz[idc] = zLim;
+          else if (pz[idc] < -zLim) pz[idc] = -zLim;
         }
       }
     }
