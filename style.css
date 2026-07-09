@@ -19,8 +19,8 @@
   --ink-900:#07153A;  /* deepest navy: cover-plate bg + navy-button hover */
   --pom:#0038B8;      /* Israeli-flag blue: thread, every CTA, links, drop-caps, the igniting word */
   --pom-700:#00268A;  /* flag-blue CTA hover (white label 11:1 AAA) */
-  --euc:#26489E;      /* mid flag-blue for eucalyptus-slot detail plates (white 6.4:1 AA) */
-  --tek:#0038B8;      /* flag blue: the vivid gallery field (white 8.6:1 AAA) */
+  --euc:#21407F;      /* deep blue for eucalyptus-slot detail plates (white 9:1+ AAA) */
+  --tek:#16357C;      /* deep blue for the tekhelet-slot detail plate (white 10:1 AAA) */
   --tek-500:#3B5BC0;  /* lighter flag blue for hairlines / medallion rings / large accents */
   --brass:#7C90C6;    /* blue-gray hairlines, keylines, crop-marks on white (never text on white) */
   --brass-light:#C9D6F5; /* keyline / eyebrow on navy night (7.5:1 AA) */
@@ -316,11 +316,11 @@ a.card:hover .card-title{background-position:-60% 0}
 }
 
 /* ---------- gallery: the projection wall ---------- */
-.gallery{background:var(--tek);color:var(--cream)}
+.gallery{background:var(--ink);color:var(--cream)}
 .gallery .section-head .eyebrow{color:var(--cream)}
 .gallery h2{color:var(--cream)}
 .gallery .section-sub{color:var(--cream)}
-.video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,620px));gap:34px;justify-content:start}
+.video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,620px));gap:34px;justify-content:center}
 .video-item{margin:0}
 .video-wrap{position:relative;aspect-ratio:16/9;background:var(--ink-900);overflow:hidden;cursor:pointer;
   border:1px solid var(--brass);outline:1px solid var(--brass);outline-offset:5px}
