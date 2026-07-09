@@ -224,18 +224,19 @@
             continue;
           }
           var frac = i / (cols - 1);                 // 0 at pole, 1 at free edge
-          var whip = 0.35 + frac * frac * 1.9;       // trailing-edge whip
+          var whip = 0.35 + frac * frac * 2.2;       // trailing-edge whip
 
           var nx = px[id] / (120 * dpr);
           var ny = py[id] / (120 * dpr);
           var turb = turbulence(nx, ny, t);
           var gust = 0.82 + 0.24 * Math.sin(t * 0.6 + frac * 2.0);   // never falls to a dead calm
+          var wave = Math.sin(frac * 7.0 - t * 2.4);                 // ripples travelling pole -> free edge
 
-          // Strong, steady +x wind holds the flag out taut (dominates gravity);
-          // a gentler +z term gives a rolling billow rather than a violent fold.
+          // Strong, steady +x wind holds the flag out taut (dominates gravity); the +z term rolls
+          // a deep billow PLUS a travelling wave so the cloth shows real, pretty S-curve folds.
           var ax = wind * (118 * dpr) * whip * (0.78 + 0.22 * turb);
-          var az = wind * (64 * dpr) * whip * gust * (0.6 + 0.4 * turb);
-          var ay = g + wind * (7 * dpr) * whip * Math.sin(t * 1.3 + turb);
+          var az = wind * whip * ((88 * dpr) * gust * (0.55 + 0.45 * turb) + (58 * dpr) * wave);
+          var ay = g + wind * (9 * dpr) * whip * Math.sin(t * 1.3 + turb);
 
           // Verlet: x' = x + (x - xo)*damping + a*dt^2
           var vx = (px[id] - ox[id]) * damping;
@@ -276,7 +277,7 @@
       // Anti-collapse envelope: keep every vertex inside a flag-shaped box so a
       // wind lull, resize, or instability can NEVER fold the cloth into a rag.
       // Limits are generous, so in a normal breeze they almost never engage.
-      var zLim = flagW * 0.40;
+      var zLim = flagW * 0.46;
       var topLim = flagTop - flagH * 0.30;
       var botLim = flagTop + flagH * 1.30;
       for (var jc = 0; jc < rows; jc++) {
