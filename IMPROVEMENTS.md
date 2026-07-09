@@ -1,0 +1,56 @@
+# Autonomous Site-Improvement Loop — Doctrine & Ledger
+
+> This file is the operating manual. Every cycle READS this first (rules + ledger),
+> runs ONE improvement, then appends its result to the ledger at the bottom.
+
+## Mission
+Take the Shaul Naim site ("The Song-Poster" for Shirei Eretz Yisrael, at `~/Desktop/shaulnaim-website`,
+served at http://localhost:8747) to genuinely **world-class, Awwwards Site-of-the-Day quality**. The owner
+said it still looks amateur — treat that as ground truth and push hard. Every cycle must leave the site
+**strictly better** than before. Quality compounds: small, verified, cumulative gains beat risky rewrites.
+
+## Deadline
+Started 2026-07-09 14:47. **HARD STOP 2026-07-09 19:47** (5 hours). At the top of EVERY cycle run
+`date "+%H:%M"`; if it is 19:47 or later, do one final polish + commit + `git push origin dev`, write a
+closing ledger summary, and END the loop by calling `ScheduleWakeup` with `stop:true`. Otherwise continue.
+
+## The cycle (ONE focused, high-impact improvement — never a reckless rewrite)
+1. **Server** — ensure http://localhost:8747 answers 200; if not, `(python3 -m http.server 8747 &)`.
+2. **Observe** — render with headless Chrome + Playwright (`channel:'chrome'`, module at
+   `/Users/orennaim/.npm/_npx/e41f203b7505f1fb/node_modules/playwright`). Screenshot every section + a
+   detail/album/single page, desktop **1440** AND mobile **390**, both languages, reveal all `.reveal`,
+   capture the karaoke mid-ignite. **Read the images yourself** (vision) — do not critique blind.
+3. **Critique** at a brutal world-class bar. Rotate the LENS each cycle (list below) so you never fixate.
+   Optionally spawn ONE independent critic agent (general-purpose) on the screenshots for an outside eye
+   and the single highest-leverage flaw + concrete fix.
+4. **Decide** the single highest-impact change available now. Bold moves early, finer polish later.
+5. **Implement** with craft.
+6. **Verify** — re-render; confirm **zero console errors**, **WCAG AA** computed contrast holds, **no
+   horizontal scroll**, mobile intact, and **no regression** vs the previous screenshots. If it looks worse
+   or breaks anything → **REVERT** (`git checkout -- <files>`) and log why. NEVER leave the site broken.
+7. **Refresh** — bump the `?v=` asset version across the HTML files; reload the Safari localhost:8747 tab
+   (AppleScript, target the tab whose URL contains 8747) so the owner watches progress live.
+8. **Log + commit** — append one ledger line below; commit the accepted change to `dev` (clear message).
+   `git push origin dev` every ~5 accepted commits (batch pushes to limit Vercel preview builds).
+9. **Schedule** — call `ScheduleWakeup` (~90s delay, same `/loop` directive) unless past the deadline.
+
+## Lens rotation (cycle through; don't repeat a lens until the list is exhausted)
+hero impact · typography & type scale · spacing / rhythm / whitespace · color depth & nuance ·
+motion & micro-interactions · imagery & vector craft (you CANNOT shoot photos — elevate with SVG art,
+patterns, ornament, texture, grain, composition) · layout & composition · the shows / albums / singles
+components · detail-page craft · mobile experience · copy & microcopy · cohesion & finish ·
+performance & accessibility · the ONE signature moment · negative space & restraint (remove an accessory).
+
+## Guardrails (never violate)
+- Stay on `dev`. Verify BEFORE every commit. Revert anything that regresses. Never leave it broken.
+- Colors ONLY from `:root` tokens (the locked "Shemesh al Ha'aretz" foundation). Don't break the foundation
+  without a deliberate, logged reason AND re-verified contrast.
+- Keep the Song-Poster identity + the Israeli / heritage soul. Keep the karaoke signature, the multi-page
+  architecture (show/single/album pages, no modal), and accessibility intact.
+- **ACUM**: NEVER put a copyrighted song lyric as site text. Public-domain / liturgical / original only.
+- No em dashes in visual copy. No horizontal scroll. Mobile must always work. Respect reduced-motion.
+- **Respect this ledger** — do not undo accepted good work; do not oscillate between two states.
+- One coherent change per cycle. Ambition in service of quality, never recklessness.
+
+## Ledger (append one line per cycle: `#N HH:MM · lens · change · verdict[kept/reverted]`)
+- (cycles are appended below)
