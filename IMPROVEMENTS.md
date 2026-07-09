@@ -60,6 +60,13 @@ performance & accessibility · the ONE signature moment · negative space & rest
 - **Motifs at section scale:** medallion on every section header, crop-marks framing every plate, thread visible throughout — make them the grammar, not easter eggs.
 - **No empty frames ever:** every image slot needs a real "plate-not-yet-pressed" state (solid ink + embossed registration marks + a set glyph), never a 1px outline around nothing. Coming-soon single card must match the real cards' spec.
 
+## Critic queue — round 2 (cycle-8 outside eye; work across cycles)
+- **DEAD LEFT HALF (highest leverage):** flush-leading is right for FULL-WIDTH sections (hero, 3-up singles, shows table) but on sparse single-column sections (contact, gallery, about, albums) it leaves the whole left half empty = "mobile column stretched on desktop." Fix per section: contact = centered framed letterpress colophon plate; gallery = center the video OR give the left a job (oversized standfirst); albums/about = put an oversized ordinal medallion or pull-quote in the left column so the asymmetry looks chosen. [contact done #8]
+- **HERO LAST LINE CLIPPED (real bug):** final word "יַחַד" has its foot cut by the line box and the "תהילים קל״ג" attribution is jammed against it. Raise marquee line-height (~0.98 -> ~1.14) or add padding-bottom so feet/nikud clear; retune wrap so line 3 carries two words; give attribution more top gap.
+- **ABOUT crop-mark collides with caption:** bottom-left registration tick overlaps the credit; move caption down or lift the tick.
+- **SINGLES baseline breaks on wrap:** card A's 2-line title drops its year row out of alignment with the others; give the title row a fixed 2-line min-height.
+- **MOTIF DRIFT:** standardize the kicker rule (always pomegranate, fixed length) + text on EVERY header (About has none); unify singles bare-letter ordinals with the shows brass-ring + pom-letter medallion.
+
 ## Ledger (append one line per cycle: `#N HH:MM · lens · change · verdict[kept/reverted]`)
 - (cycles are appended below)
 - #1 14:53 · color depth (hero) · flat gold field to a golden-hour radial gradient (--gold to new --gold-deep #C6871A) + crisper ignite halo; ink AA 4.87 min, no scroll, no errors · KEPT
@@ -69,3 +76,4 @@ performance & accessibility · the ONE signature moment · negative space & rest
 - #5 15:16 · mobile nav · replaced the crowded 128px 3-row wrap with a proper hamburger menu (JS-injected in app.js + detail.js, a11y: aria-expanded, Esc / link-tap close); mobile bar 128->68px, desktop unchanged, no errors · KEPT
 - #6 15:22 · gallery density + composition · enlarged the single video (460->620px) and flushed the grid to the leading edge so it commands the tekhelet dusk field and aligns with the flushed header, instead of floating small-centered · KEPT
 - #7 15:27 · cohesion · music Spotify embed was still centered under a flushed header (same mismatch as the colophon); flushed it to the leading edge so header + embed align (right edges match at 1270px) · KEPT
+- #8 15:33 · composition (critic round-2 #1) · rebuilt the colophon as a CENTERED framed letterpress plate (brass double-rule) instead of flush-right with a dead left half; the void becomes a deliberate object. Refines #4 for contact per the fresh outside eye · KEPT
