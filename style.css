@@ -150,8 +150,8 @@ section{padding:116px 0;position:relative}
   margin-inline-start:.22em}
 /* ignite: word snaps to full ink and catches a golden raking-light halo (AA on gold) */
 .marquee .word.lit{color:var(--ink);text-shadow:0 0 18px rgba(255,244,214,.85),0 0 5px rgba(244,194,75,.75)}
-.hero .attribution{align-self:flex-start;font-family:var(--sans);font-size:12px;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--ink);opacity:.75;margin-top:14px}
+.hero .attribution{align-self:flex-start;font-family:var(--serif);font-style:italic;font-size:15px;
+  letter-spacing:0;text-transform:none;color:var(--ink);opacity:.66;margin-top:6px}
 .hero .sub{align-self:flex-start;font-family:var(--serif);font-weight:500;font-size:clamp(17px,2.2vw,23px);
   color:var(--ink);max-width:620px;margin-top:22px;line-height:1.5}
 .hero-cta{display:flex;gap:0;margin-top:34px;align-self:flex-start}

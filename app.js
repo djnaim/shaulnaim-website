@@ -171,14 +171,16 @@ function initKaraoke(){
   if(!m) return;
   const words = [...m.querySelectorAll('.word')];
   if(!words.length) return;
+  const ANCHOR = 3; // first words stay lit so the sing-along concept reads even at rest / in OG previews
   if(matchMedia('(prefers-reduced-motion: reduce)').matches){ words.forEach(w=>w.classList.add('lit')); return; }
+  words.slice(0, ANCHOR).forEach(w=>w.classList.add('lit')); // paint the at-rest state immediately on load
   let running = false;
   function sweep(){
     if(running) return; running = true;
     words.forEach((w,i)=> setTimeout(()=>w.classList.add('lit'), i*180));
     const hold = words.length*180 + 2800;
     setTimeout(()=>{
-      words.forEach(w=>w.classList.remove('lit'));
+      words.forEach((w,i)=>{ if(i >= ANCHOR) w.classList.remove('lit'); }); // keep the anchor words lit between sweeps
       running = false;
       setTimeout(sweep, 650);
     }, hold);
