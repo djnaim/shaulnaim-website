@@ -43,7 +43,7 @@ performance & accessibility · the ONE signature moment · negative space & rest
 
 ## Guardrails (never violate)
 - Stay on `dev`. Verify BEFORE every commit. Revert anything that regresses. Never leave it broken.
-- Colors ONLY from `:root` tokens (the locked "Shemesh al Ha'aretz" foundation). Don't break the foundation
+- Colors ONLY from `:root` tokens (the "Degel" foundation: Israeli flag = white #FFFFFF + flag blue #0038B8 + navy #0A1E4A (WCAG-verified). Token names unchanged; --gold now = white hero field, --pom/--tek = flag blue, --ink = navy). Don't break the foundation
   without a deliberate, logged reason AND re-verified contrast.
 - Keep the Song-Poster identity + the Israeli / heritage soul. Keep the karaoke signature, the multi-page
   architecture (show/single/album pages, no modal), and accessibility intact.
@@ -78,3 +78,4 @@ performance & accessibility · the ONE signature moment · negative space & rest
 - #7 15:27 · cohesion · music Spotify embed was still centered under a flushed header (same mismatch as the colophon); flushed it to the leading edge so header + embed align (right edges match at 1270px) · KEPT
 - #8 15:33 · composition (critic round-2 #1) · rebuilt the colophon as a CENTERED framed letterpress plate (brass double-rule) instead of flush-right with a dead left half; the void becomes a deliberate object. Refines #4 for contact per the fresh outside eye · KEPT
 - #9 15:41 · finish bug (critic round-2 #2) · hero marquee last word foot + nikud were clipped by a too-tight line-height (.98); raised to 1.12 + padding-block-end and nudged max size 150->144 so it sets as 2 clean lines, plus attribution clearance (6->16px) · KEPT
+- ** USER PIVOT 15:45 · COLOR FOUNDATION -> Israeli flag ("Degel") · white background + flag blue #0038B8 + navy #0A1E4A, replacing the gold "Shemesh al Ha.aretz". Hero = white field with the Psalm igniting in flag blue; singles/gallery/contact = flag-blue/navy with white; all pairs AA/AAA (8.6-16.2), no errors. Loop continues on this palette. · KEPT

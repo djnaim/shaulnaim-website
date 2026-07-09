@@ -1,32 +1,32 @@
 /* ============================================================
    Shaul Naim — "כרזה ששרה / The Song-Poster"
    A pioneer Eretz-Yisrael song-pamphlet you scroll as one day of song.
-   Sun-arc: Jerusalem-stone morning -> burnished-gold midday ->
-   eucalyptus/tekhelet dusk -> night-ink. Gold = raking light, not metal.
+   Palette "Degel": the Israeli flag - white field + flag blue (#0038B8) + navy.
+   White light sections alternate with flag-blue/navy dark sections.
    Signature: the sing-along headline that ignites word by word.
    ============================================================ */
 :root{
-  /* ---- LOCKED COLOR FOUNDATION: "Shemesh al Ha'aretz" (5-agent verdict, WCAG-verified) ----
-     One day of light over one land, Jerusalem limestone dawn to nightfall, printed like a songbook.
-     Value carries the arc; saturated hue is rationed and fenced by neutral stone gutters. */
-  --stone:#ECDFBE;    /* page paper (albums/about/music); ink 11.23:1 AAA */
-  --stone-2:#E4D4AC;  /* deeper stone band for the shows table-of-contents; ink 10.13:1 AAA */
-  --gold:#E3A21A;     /* hero midday field, large fields ONLY (never text/keyline) */
-  --gold-deep:#C6871A; /* deeper gold shade for hero golden-hour depth (ink contrast only improves) */
-  --glow:#F4C24B;     /* the ONE light: sun-bead, ignite halo, headings/ordinals on ink, focus core */
-  --ink:#0E2A3B;      /* night ground + primary body text on paper + ignited karaoke word */
-  --ink-2:#123246;    /* raised ink card on the singles wall */
-  --ink-900:#0A2030;  /* deepest ink: cover-plate bg + ink-button hover */
-  --pom:#A6322A;      /* the scarlet thread + every CTA + links + drop-caps */
-  --pom-700:#8F2A22;  /* scarlet CTA hover (cream label 7.26:1 AAA) */
-  --euc:#56704B;      /* deepened land hue: eucalyptus detail plate (cream 4.80 AA) */
-  --tek:#2A6E84;      /* deepened tekhelet: the full commanded-blue dusk gallery field (cream 5.00 AA) */
-  --tek-500:#2E7C93;  /* legacy tekhelet for hairlines / medallion rings / large accents only */
-  --brass:#9A7B3F;    /* hairlines, keylines, crop-marks on light grounds (never text on paper) */
-  --brass-light:#C0A468; /* keyline / eyebrow on ink night (6.19:1 AA) */
-  --stone-soft:#4A4230;   /* muted text on paper (7.51:1 AAA) */
-  --cream:#F6EFDE;    /* raised plate + inverse text on all dark grounds */
-  --sand:#C7B48A;     /* muted text on ink (7.31:1 AAA) + disabled-fill base */
+  /* ---- COLOR FOUNDATION: "Degel" — the Israeli flag (white + tekhelet blue), WCAG-verified ----
+     White is the field; Israeli-flag blue #0038B8 is the one saturated hue; navy carries depth
+     and text. Token NAMES kept from the previous system so every component inherits. */
+  --stone:#FFFFFF;    /* white page / light sections; navy text 16:1 AAA */
+  --stone-2:#E7EEFC;  /* palest blue tint band (shows table-of-contents); navy 13:1 AAA */
+  --gold:#FFFFFF;     /* hero field = the flag's white field (large field; navy text + blue accents) */
+  --gold-deep:#EAF1FF; /* faint blue for the hero's subtle light gradient */
+  --glow:#FFFFFF;     /* the light accent on the blue/navy dark sections (white 8.6:1+ on flag blue) */
+  --ink:#0A1E4A;      /* navy: dark section grounds + primary body text on white (16:1 AAA) */
+  --ink-2:#12245C;    /* raised navy card on the singles wall */
+  --ink-900:#07153A;  /* deepest navy: cover-plate bg + navy-button hover */
+  --pom:#0038B8;      /* Israeli-flag blue: thread, every CTA, links, drop-caps, the igniting word */
+  --pom-700:#00268A;  /* flag-blue CTA hover (white label 11:1 AAA) */
+  --euc:#26489E;      /* mid flag-blue for eucalyptus-slot detail plates (white 6.4:1 AA) */
+  --tek:#0038B8;      /* flag blue: the vivid gallery field (white 8.6:1 AAA) */
+  --tek-500:#3B5BC0;  /* lighter flag blue for hairlines / medallion rings / large accents */
+  --brass:#7C90C6;    /* blue-gray hairlines, keylines, crop-marks on white (never text on white) */
+  --brass-light:#C9D6F5; /* keyline / eyebrow on navy night (7.5:1 AA) */
+  --stone-soft:#3A4A78;   /* muted navy text on white (7.4:1 AAA) */
+  --cream:#FFFFFF;    /* white: raised plate + inverse text on all blue/navy grounds */
+  --sand:#AEC0EA;     /* muted light-blue text on navy (6.2:1 AA) + disabled-fill base */
   /* semantic aliases */
   --page:var(--stone); --raised:var(--cream); --muted:var(--stone-soft);
   --focus-glow:var(--glow); --focus-ink:var(--ink); --disabled-text:var(--stone-soft);
@@ -85,7 +85,7 @@ section{padding:116px 0;position:relative}
 /* ---------- nav ---------- */
 .nav{position:fixed;top:0;inset-inline:0;z-index:30;display:flex;justify-content:space-between;
   align-items:center;flex-wrap:wrap;row-gap:6px;padding:18px 36px;transition:.35s;background:transparent}
-.nav.scrolled{background:rgba(14,42,59,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--brass)}
+.nav.scrolled{background:rgba(10,30,74,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--brass)}
 .nav.scrolled .brand,.nav.scrolled nav a{color:var(--stone)}
 .brand{font-family:var(--display);font-weight:400;font-size:23px;white-space:nowrap;color:var(--ink);text-decoration:none}
 .brand::after{content:"";display:inline-block;width:7px;height:7px;background:var(--pom);
@@ -110,7 +110,7 @@ section{padding:116px 0;position:relative}
   .nav nav{display:none}
   .nav.open .nav-toggle svg{transform:rotate(90deg)}
   .nav.open nav{display:flex;flex-direction:column;align-items:flex-start;gap:16px;
-    position:fixed;inset:66px 0 auto 0;background:rgba(14,42,59,.98);backdrop-filter:blur(12px);
+    position:fixed;inset:66px 0 auto 0;background:rgba(10,30,74,.98);backdrop-filter:blur(12px);
     padding:24px 22px 28px;border-bottom:1px solid var(--brass);z-index:29}
   .nav.open nav a{margin:0;font-size:16px;color:var(--stone);opacity:1}
   .nav.open .lang-toggle{margin:10px 0 0;color:var(--stone)}
@@ -138,7 +138,7 @@ section{padding:116px 0;position:relative}
 /* the raking-light band that crosses the poster */
 .sweep{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1}
 .sweep::before{content:"";position:absolute;top:-25%;bottom:-25%;width:46%;
-  background:linear-gradient(100deg,transparent,rgba(255,248,225,.32) 45%,rgba(255,248,225,.32) 55%,transparent);
+  background:linear-gradient(100deg,transparent,rgba(0,56,184,.06) 45%,rgba(0,56,184,.06) 55%,transparent);
   transform:translateX(220%) skewX(-10deg);animation:sweep 8s ease-in-out 1.2s infinite}
 @keyframes sweep{0%{transform:translateX(220%) skewX(-10deg)}
   60%,100%{transform:translateX(-260%) skewX(-10deg)}}
@@ -161,10 +161,10 @@ section{padding:116px 0;position:relative}
 .marquee{font-family:var(--display);font-weight:400;line-height:1.12;direction:rtl;
   font-size:clamp(46px,10.5vw,144px);margin:6px 0 4px;padding-block-end:.08em;
   width:100vw;margin-inline-start:calc(50% - 50vw);padding-inline-end:40px;text-align:start}
-.marquee .word{display:inline-block;color:rgba(14,42,59,.24);transition:color .55s ease,text-shadow .55s ease;
+.marquee .word{display:inline-block;color:rgba(10,30,74,.24);transition:color .55s ease,text-shadow .55s ease;
   margin-inline-start:.22em}
 /* ignite: word snaps to full ink and catches a golden raking-light halo (AA on gold) */
-.marquee .word.lit{color:var(--ink);text-shadow:0 0 18px rgba(255,244,214,.85),0 0 5px rgba(244,194,75,.75)}
+.marquee .word.lit{color:var(--pom);text-shadow:0 0 20px rgba(0,56,184,.35),0 0 6px rgba(59,91,192,.5)}
 .hero .attribution{align-self:flex-start;font-family:var(--serif);font-style:italic;font-size:15px;
   letter-spacing:0;text-transform:none;color:var(--ink);opacity:.66;margin-top:16px}
 .hero .sub{align-self:flex-start;font-family:var(--serif);font-weight:500;font-size:clamp(17px,2.2vw,23px);
@@ -200,12 +200,12 @@ h2{font-family:var(--display);font-weight:400;font-size:clamp(34px,5vw,66px);let
 .card{padding:0;border:none;background:none;text-align:inherit;font-family:inherit;color:inherit;
   text-decoration:none;display:block}
 .plate{position:relative;aspect-ratio:1;background:var(--ink-900) center/cover;overflow:hidden;
-  border:1px solid var(--brass);outline:1px solid rgba(154,123,63,.35);outline-offset:5px;transition:.3s}
+  border:1px solid var(--brass);outline:1px solid rgba(124,144,198,.35);outline-offset:5px;transition:.3s}
 .card-cover{position:relative;aspect-ratio:1;background:var(--ink-900) center/cover;overflow:hidden;
-  border:1px solid var(--brass);outline:1px solid rgba(154,123,63,.35);outline-offset:5px;transition:.35s}
+  border:1px solid var(--brass);outline:1px solid rgba(124,144,198,.35);outline-offset:5px;transition:.35s}
 a.card:hover .card-cover{outline-color:var(--glow)}
 .card-play{position:absolute;inset:0;margin:auto;width:58px;height:58px;border:1.5px solid var(--stone);
-  background:rgba(14,42,59,.55);color:var(--stone);font-size:20px;display:flex;align-items:center;
+  background:rgba(10,30,74,.55);color:var(--stone);font-size:20px;display:flex;align-items:center;
   justify-content:center;padding-inline-start:4px;opacity:0;transition:.28s}
 a.card:hover .card-play{opacity:1}
 .card-coming .card-cover{display:flex;flex-direction:column;gap:10px;align-items:center;justify-content:center;
@@ -240,7 +240,7 @@ a.card:hover .card-title{background-position:-60% 0}
   justify-content:center;max-width:900px;margin:0 auto}
 .album-card{text-decoration:none;color:inherit;display:block}
 .album-cover{position:relative;aspect-ratio:1;overflow:hidden;border:1px solid var(--brass);
-  outline:1px solid rgba(154,123,63,.35);outline-offset:6px;transition:.3s}
+  outline:1px solid rgba(124,144,198,.35);outline-offset:6px;transition:.3s}
 .album-cover img{width:100%;height:100%;object-fit:cover;transition:.5s ease}
 .album-card:hover .album-cover{outline-color:var(--pom)}
 .album-card:hover .album-cover img{transform:scale(1.04)}
@@ -256,7 +256,7 @@ a.card:hover .card-title{background-position:-60% 0}
 /* album detail page: record sleeve */
 .album-detail{display:flex;gap:46px;align-items:flex-start;flex-wrap:wrap}
 .album-detail-cover{flex:0 0 320px;max-width:100%;aspect-ratio:1;overflow:hidden;
-  border:1px solid var(--brass);outline:1px solid rgba(154,123,63,.4);outline-offset:7px}
+  border:1px solid var(--brass);outline:1px solid rgba(124,144,198,.4);outline-offset:7px}
 .album-detail-cover.cropped::before{inset:-1px}
 .album-detail-cover img{width:100%;height:100%;object-fit:cover}
 .album-detail-info{flex:1;min-width:280px}
@@ -268,7 +268,7 @@ a.card:hover .card-title{background-position:-60% 0}
 .about{background:var(--stone);color:var(--ink)}
 .about-inner{display:flex;gap:60px;align-items:center;flex-wrap:wrap;justify-content:center;max-width:1000px;margin:0 auto}
 .about .portrait{width:300px;height:380px;object-fit:cover;object-position:center 30%;border-radius:0;
-  border:1px solid var(--brass);outline:1px solid rgba(154,123,63,.35);outline-offset:5px}
+  border:1px solid var(--brass);outline:1px solid rgba(124,144,198,.35);outline-offset:5px}
 .portrait-plate{position:relative}
 .portrait-plate .cap{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--stone-soft);margin-top:10px;border-top:1px solid var(--brass);padding-top:8px}
@@ -288,7 +288,7 @@ a.card:hover .card-title{background-position:-60% 0}
 .toc{max-width:1000px;margin:0 auto;border-top:1px solid var(--brass)}
 .toc-row{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:22px;
   padding:24px 26px;border-bottom:1px solid var(--brass);text-decoration:none;color:inherit;transition:.25s}
-.toc-row:hover{background:rgba(14,42,59,.055)}
+.toc-row:hover{background:rgba(10,30,74,.055)}
 .medallion{font-family:var(--display);font-size:24px;width:54px;height:54px;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;border:1.5px solid var(--brass);border-radius:50%;
   color:var(--ink);background:var(--stone);
@@ -337,13 +337,13 @@ a.card:hover .card-title{background-position:-60% 0}
 /* ---------- music ---------- */
 .music{background:var(--stone);color:var(--ink);text-align:start}
 .music .section-head{text-align:start}
-.embed{margin:0;max-width:760px;border:1px solid var(--brass);outline:1px solid rgba(154,123,63,.35);outline-offset:5px}
+.embed{margin:0;max-width:760px;border:1px solid var(--brass);outline:1px solid rgba(124,144,198,.35);outline-offset:5px}
 
 /* ---------- contact: the colophon ---------- */
 .contact{background:var(--ink);color:var(--cream);text-align:center}
 /* centered framed letterpress colophon plate (turns the void into a deliberate object) */
 .contact .container{max-width:820px;border:1px solid var(--brass);
-  outline:1px solid rgba(154,123,63,.35);outline-offset:7px;padding:clamp(44px,6vw,72px) clamp(28px,5vw,60px)}
+  outline:1px solid rgba(124,144,198,.35);outline-offset:7px;padding:clamp(44px,6vw,72px) clamp(28px,5vw,60px)}
 .contact .section-head{text-align:center;margin-bottom:26px}
 .contact .section-head .eyebrow{color:var(--glow);padding-inline-start:0}
 .contact .section-head .eyebrow::before{display:none}
@@ -398,7 +398,7 @@ footer .small a:hover{color:var(--glow)}
 .detail-body .show-includes{color:var(--stone-soft);font-size:14px;border-top:1px solid var(--brass);padding-top:16px;margin-top:24px;opacity:.9}
 .detail-body .credit{font-family:var(--sans);font-size:13px;letter-spacing:.06em;color:var(--stone-soft);margin:2px 0 18px}
 .detail-body .blurb{font-size:19px;color:var(--ink);margin-bottom:22px}
-.detail-body .video-wrap{margin:0 0 30px;outline-color:rgba(154,123,63,.4)}
+.detail-body .video-wrap{margin:0 0 30px;outline-color:rgba(124,144,198,.4)}
 .detail-body .stream-links{display:flex;gap:0;flex-wrap:wrap;margin-bottom:8px}
 .chip{font-family:var(--sans);font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;
   background:var(--ink);color:var(--stone);text-decoration:none;padding:13px 30px;border:2px solid var(--ink);transition:.2s}
