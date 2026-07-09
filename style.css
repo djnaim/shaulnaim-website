@@ -48,6 +48,12 @@ section{padding:116px 0;position:relative;scroll-margin-top:96px}
 /* furniture: tracked Heebo small-caps for all nav / meta / labels */
 .eyebrow,.section-sub,.meta,.nav nav a,.lang-toggle,.card-year,.back-link,.imprint,.medallion-label{
   font-family:var(--sans);letter-spacing:.12em}
+/* Hebrew has no uppercase and dislikes Latin letter-spacing: neutralise both on RTL
+   furniture (English keeps its tracked small-caps because dir flips to ltr in EN). */
+[dir=rtl] .eyebrow,[dir=rtl] .section-sub,[dir=rtl] .meta,[dir=rtl] .card-year,[dir=rtl] .back-link,
+[dir=rtl] .imprint,[dir=rtl] .medallion-label,[dir=rtl] .album-info,[dir=rtl] .album-detail-meta,
+[dir=rtl] .toc-meta,[dir=rtl] .video-desc,[dir=rtl] .soon,[dir=rtl] .credit,[dir=rtl] .cap{
+  letter-spacing:normal;text-transform:none}
 
 /* reveal */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s ease}
