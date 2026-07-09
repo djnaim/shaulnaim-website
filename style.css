@@ -337,7 +337,7 @@ a.card:hover .card-title{background-position:-60% 0}
 /* ---------- music ---------- */
 .music{background:var(--stone);color:var(--ink);text-align:start}
 .music .section-head{text-align:start}
-.embed{margin:0 auto;max-width:760px;border:1px solid var(--brass);outline:1px solid rgba(154,123,63,.35);outline-offset:5px}
+.embed{margin:0;max-width:760px;border:1px solid var(--brass);outline:1px solid rgba(154,123,63,.35);outline-offset:5px}
 
 /* ---------- contact: the colophon ---------- */
 .contact{background:var(--ink);color:var(--cream);text-align:start}
