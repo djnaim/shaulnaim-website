@@ -296,11 +296,13 @@ a.card:hover .card-title{background-position:-60% 0}
 .toc-row{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:22px;
   padding:24px 26px;border-bottom:1px solid var(--brass);text-decoration:none;color:inherit;transition:.25s}
 .toc-row:hover{background:rgba(10,30,74,.055)}
+/* letterpress medallion: navy plate with a double-rule keyline (not a thin hollow ring) */
 .medallion{font-family:var(--display);font-size:24px;width:54px;height:54px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;border:1.5px solid var(--brass);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;border:2px solid var(--ink);border-radius:50%;
   color:var(--ink);background:var(--stone);
-  box-shadow:inset 0 0 0 4px var(--stone), inset 0 0 0 5px var(--row-hue,transparent)}
-.toc-row:hover .medallion{border-color:var(--pom);color:var(--pom)}
+  box-shadow:inset 0 0 0 3px var(--stone), inset 0 0 0 4px var(--ink)}
+.toc-row:hover .medallion{border-color:var(--pom);color:var(--pom);
+  box-shadow:inset 0 0 0 3px var(--stone), inset 0 0 0 4px var(--pom)}
 .toc-main{min-width:0}
 .toc-line{display:flex;align-items:baseline;gap:16px}
 .toc-title{font-family:var(--serif);font-weight:900;font-size:clamp(19px,2.3vw,26px);line-height:1.2}
