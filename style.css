@@ -274,7 +274,7 @@ a.card:hover .card-title{background-position:-60% 0}
 
 /* ---------- about: printed photo plate on stone ---------- */
 .about{background:var(--stone);color:var(--ink)}
-.about-inner{display:flex;gap:60px;align-items:center;flex-wrap:wrap;justify-content:center;max-width:1000px;margin:0 auto}
+.about-inner{display:flex;gap:60px;align-items:flex-start;flex-wrap:wrap;justify-content:center;max-width:1000px;margin:0 auto}
 .about .portrait{width:300px;height:380px;object-fit:cover;object-position:center 30%;border-radius:0;
   border:1px solid var(--brass)}
 .portrait-plate{position:relative}
@@ -284,8 +284,7 @@ a.card:hover .card-title{background-position:-60% 0}
 .about-text h2{color:var(--ink);margin-bottom:16px}
 .about-text .eyebrow{display:block;color:var(--pom);font-size:12px;font-weight:600;text-transform:uppercase;margin-bottom:10px}
 .about-text p{color:var(--stone-soft);margin-bottom:15px;font-size:18px}
-.about-text p.lead::first-letter{font-family:var(--display);font-size:3.4em;float:inline-start;
-  line-height:.8;padding-inline-end:10px;color:var(--pom)}
+.about-text p.lead{color:var(--ink);font-weight:500}
 .quote{font-family:var(--serif);font-size:23px;color:var(--ink);font-style:normal;font-weight:700;
   border-inline-start:4px solid var(--pom);padding-inline-start:18px;margin:22px 0}
 
