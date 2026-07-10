@@ -36,7 +36,8 @@
   --tooth:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 *{box-sizing:border-box;margin:0;padding:0}
-:focus-visible{outline:2px solid var(--focus-glow);outline-offset:2px;box-shadow:0 0 0 4px var(--focus-ink)}
+/* focus ring must be visible on the white field: flag-blue outline + navy halo (works on white AND on flag-blue buttons) */
+:focus-visible{outline:3px solid var(--pom);outline-offset:2px;box-shadow:0 0 0 5px rgba(10,30,74,.25)}
 html{scroll-behavior:smooth}
 body{font-family:var(--serif);background:var(--stone);color:var(--ink);line-height:1.75;
   -webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -367,7 +368,7 @@ a.card:hover .card-title{background-position:-60% 0}
 .contact-links .btn:first-child{border-inline-end:none}
 .imprint{font-family:var(--sans);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--stone-soft);margin-top:30px}
 .social{margin-top:18px;display:flex;gap:22px;justify-content:center;font-family:var(--sans);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
-.social a{color:var(--stone-soft);text-decoration:none;transition:.2s}
+.social a{display:inline-block;padding:6px 6px;color:var(--stone-soft);text-decoration:none;transition:.2s}
 .social a:hover{color:var(--pom)}
 .seal-here{position:absolute;right:-7px;bottom:0;width:16px;height:16px;border-radius:50%;background:var(--pom);
   box-shadow:0 0 14px var(--pom);transform:scale(0);transition:transform .55s cubic-bezier(.2,1.5,.45,1)}
