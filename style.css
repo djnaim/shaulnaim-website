@@ -454,3 +454,103 @@ footer .small a:hover{color:var(--pom-700)}
   .thread-bead{display:none}
   .tilt{transform:none!important}
 }
+
+/* ================================================================
+   HOME v3 (2026-10-03): the flag is the living backdrop, Shaul is the subject.
+   Seven details derived from the flag recur across the page:
+   1 two stripes  2 silver pole line  3 gold finial dot  4 star triangle (play)
+   5 fabric weave  6 the wind's 180ms response  7 white / pale-blue alternation
+   ================================================================ */
+:root{
+  --v3-blue:#0038B8; --v3-blue-d:#00268A; --v3-ink:#0A1E4A; --v3-soft:#3A4A78;
+  --v3-rule:#C6D2EA; --v3-gold:#B69A4F; --v3-pale:#F7F9FF; --v3-ease:cubic-bezier(.22,1,.36,1);
+}
+/* 1. two stripes: 2px lines, 6px apart, 28px wide */
+.stripes2{display:inline-block;width:28px;height:10px;flex:none;vertical-align:middle;
+  background:linear-gradient(var(--v3-blue),var(--v3-blue)) 0 0/100% 2px no-repeat,
+             linear-gradient(var(--v3-blue),var(--v3-blue)) 0 8px/100% 2px no-repeat}
+.nav nav a{position:relative;transition:color .18s ease-out}
+.nav nav a::after{content:"";position:absolute;inset-inline-start:0;bottom:-8px;width:28px;height:10px;opacity:0;transform:translateY(2px);
+  transition:opacity .18s ease-out,transform .18s ease-out;
+  background:linear-gradient(var(--v3-blue),var(--v3-blue)) 0 0/100% 2px no-repeat,
+             linear-gradient(var(--v3-blue),var(--v3-blue)) 0 8px/100% 2px no-repeat}
+.nav nav a:hover::after,.nav nav a:focus-visible::after{opacity:1;transform:none}
+.nav nav a:hover{color:var(--v3-blue)!important}
+/* 3. gold finial dot */
+.finial-dot{display:inline-block;width:6px;height:6px;border-radius:50%;vertical-align:middle;margin-inline:6px;
+  background:radial-gradient(circle at 35% 30%,#F6E3A6,var(--v3-gold) 60%,#7E6522)}
+.v3-eyebrow{display:inline-flex!important;align-items:center;gap:10px;color:var(--v3-blue)!important;font-weight:700!important;letter-spacing:0!important}
+
+/* ---------- hero ---------- */
+.hero-v3{background:linear-gradient(180deg,var(--v3-pale) 0%,#fff 100%);padding:112px 72px 56px;position:relative;overflow:hidden}
+.hv3-grid{max-width:1296px;margin:0 auto;display:grid;column-gap:40px;align-items:center;
+  grid-template-columns:minmax(0,504px) minmax(0,1fr);
+  grid-template-areas:"name flag" "desc flag" "row flag" ". pause"}
+.hv3-text{display:contents}
+.hv3-name{grid-area:name;align-self:end;margin:0;font-family:"Frank Ruhl Libre",serif;font-weight:700;color:var(--v3-blue);
+  font-size:clamp(64px,8.4vw,120px);line-height:1.05;white-space:nowrap;letter-spacing:0}
+.hv3-desc{grid-area:desc;display:flex;align-items:center;gap:14px;margin:14px 0 36px;font-family:"Heebo",sans-serif;font-size:18px;line-height:28px;color:var(--v3-soft);font-weight:500}
+.hv3-row{grid-area:row;align-self:start;display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
+.hv3-actions{display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding-bottom:12px}
+.hv3-photo{width:216px;height:270px;object-fit:cover;object-position:center top;border-radius:0;display:block;
+  border-inline-start:1px solid var(--v3-rule);padding-inline-start:0}
+.hv3-flag{grid-area:flag;position:relative;width:100%;aspect-ratio:800/580;will-change:transform}
+.hv3-flag canvas,.hv3-flag .flag-still{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hv3-flag canvas{z-index:1}
+.hv3-flag canvas.flag-ready + .flag-still{display:none}
+.motion-v3{grid-area:pause;justify-self:start;min-height:44px;padding:0 14px;background:transparent;border:0;cursor:pointer;
+  font-family:"Heebo",sans-serif;font-size:14px;font-weight:500;color:var(--v3-soft);text-decoration:underline;text-underline-offset:4px}
+.motion-v3:hover{color:var(--v3-blue)}
+/* 4 + 6. the star's triangle as play, moving 2px with the wind's 180ms rhythm */
+.btn-v3{display:inline-flex;align-items:center;justify-content:center;gap:12px;width:232px;min-height:52px;border-radius:2px;
+  background:var(--v3-blue);color:#fff;text-decoration:none;font-family:"Heebo",sans-serif;font-weight:700;font-size:16px;
+  transition:background-color .18s ease-out}
+.btn-v3:hover,.btn-v3:focus-visible{background:var(--v3-blue-d);color:#fff}
+.btn-v3 .tri{width:14px;height:14px;fill:currentColor;transition:transform .18s ease-out}
+[dir=rtl] .btn-v3 .tri{transform:none}
+.btn-v3:hover .tri{transform:translateX(2px)}
+.link-v3{display:inline-flex;align-items:center;min-height:44px;color:var(--v3-ink);font-family:"Heebo",sans-serif;font-weight:500;font-size:16px;
+  text-decoration:underline;text-decoration-color:var(--v3-rule);text-underline-offset:6px;text-decoration-thickness:2px;transition:text-decoration-color .18s ease-out}
+.link-v3:hover{text-decoration-color:var(--v3-blue);color:var(--v3-blue)}
+:focus-visible{outline:3px solid var(--v3-blue);outline-offset:3px;box-shadow:0 0 0 6px #fff}
+@media (prefers-reduced-motion: reduce){.btn-v3,.btn-v3 .tri,.link-v3,.nav nav a::after{transition:none}}
+
+/* play triangle on the music cards */
+.card-play svg{width:22px;height:22px;fill:currentColor;transition:transform .18s ease-out}
+a.card:hover .card-play svg{transform:translateX(2px)}
+
+/* 7. white / pale-blue alternation, like the flag's field and stripes */
+.singles{background:#fff}
+.albums{background:var(--v3-pale);position:relative}
+.about{background:#fff}
+.shows{background:var(--v3-pale)}
+.gallery{background:#fff}
+.music{background:var(--v3-pale)}
+.contact{background:#fff}
+.gutter{display:none}
+/* 5. the fabric weave, behind the albums */
+.albums::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:1;
+  background-image:repeating-linear-gradient(0deg,rgba(10,30,74,.015) 0 1px,transparent 1px 6px),
+                   repeating-linear-gradient(90deg,rgba(10,30,74,.015) 0 1px,transparent 1px 6px)}
+.albums > *{position:relative}
+/* 2. the silver pole line beside readable blocks */
+.about-text{border-inline-start:1px solid var(--v3-rule);padding-inline-start:28px}
+.toc{border-inline-start:1px solid var(--v3-rule)}
+
+/* the Psalm, now beside the invitation to sing together */
+.psalm{margin:0 0 18px;font-family:"Frank Ruhl Libre",serif;font-weight:700;font-size:48px;line-height:1.2;color:var(--v3-blue)}
+.psalm small{display:block;margin-top:6px;font-family:"Heebo",sans-serif;font-weight:500;font-size:14px;color:var(--v3-soft)}
+
+/* ---------- mobile ---------- */
+@media (max-width:767px){
+  .hero-v3{padding:88px 24px 40px}
+  .hv3-grid{grid-template-columns:1fr;grid-template-areas:"name" "desc" "flag" "pause" "row";column-gap:0}
+  .hv3-name{font-size:clamp(64px,20.5vw,80px);line-height:1.1;white-space:nowrap}
+  .hv3-desc{margin:8px 0 16px;font-size:16px;line-height:24px;flex-wrap:wrap}
+  .hv3-flag{aspect-ratio:342/260}
+  .motion-v3{justify-self:start;margin:4px 0 12px}
+  .hv3-row{gap:16px}
+  .hv3-photo{width:128px;height:160px}
+  .btn-v3{width:190px}
+  .psalm{font-size:32px}
+}

@@ -117,7 +117,7 @@
 
     /* ---- cloth ---- */
     var small = (canvas.clientWidth || 600) < 520;
-    var C = small ? 40 : 58, R = Math.round(C * 160 / 220);
+    var C = small ? 28 : 58, R = Math.round(C * 160 / 220);
     var FW = 3.0, FH = FW * 160 / 220, top = FH / 2;
     var N = C * R, P = new Float32Array(N * 3), O = new Float32Array(N * 3), F = new Float32Array(N * 3), pin = new Uint8Array(N);
     var UV = new Float32Array(N * 2), NOR = new Float32Array(N * 3);
@@ -171,10 +171,14 @@
     var pole = meshBufs(poleM), ball = meshBufs(ballM);
 
     /* ---- simulation ---- */
-    var t = 0, wind = opts.wind || 1;
+    var t = 0, baseWind = opts.wind || 0.95, wind = baseWind, gustTarget = 0, gustNow = 0;
     function noise(x, y, z) { return Math.sin(x * 1.7 + z * 1.3) * Math.cos(y * 1.9 - z * 0.7) + 0.5 * Math.sin(x * 3.1 - y * 2.3 + z * 2.1); }
     function step(dt) {
       t += dt;
+      // pointer gust: quick attack (~180ms), slow release (~1s)
+      gustNow += (gustTarget - gustNow) * Math.min(1, dt / (gustTarget > gustNow ? 0.18 : 1.0));
+      gustTarget *= Math.max(0, 1 - dt / 0.6);
+      wind = Math.min(1.10, baseWind + gustNow);
       var gust = 1 + 0.45 * Math.sin(t * 0.55) + 0.25 * Math.sin(t * 1.7 + 1.1);   // breathing gusts
       var Wx = 14 * wind * gust, Wy = 0.6 * Math.sin(t * 0.8), Wz = 1.1 * wind * Math.sin(t * 0.37);
       F.fill(0);
@@ -231,7 +235,7 @@
     /* ---- camera: low, heroic, three-quarter ---- */
     var eye = opts.eye || [-1.1, -1.05, 4.75], target = opts.target || [1.75, 0.22, 0.1];
     function draw() {
-      var w = canvas.clientWidth, h = canvas.clientHeight, dpr = Math.min(global.devicePixelRatio || 1, 2);
+      var w = canvas.clientWidth, h = canvas.clientHeight, dpr = Math.min(global.devicePixelRatio || 1, small ? 1 : 1.5);
       if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) { canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr); }
       gl.viewport(0, 0, canvas.width, canvas.height);
       gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -258,24 +262,39 @@
 
     /* ---- loop ---- */
     var reduced = global.matchMedia && global.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var raf = 0, running = false, last = 0, visible = true;
-    // settle the cloth before the first paint so it never starts as a flat sheet
-    for (var w0 = 0; w0 < 240; w0++) step(1 / 120);
+    var raf = 0, running = false, paused = false, last = 0, acc = 0, visible = true, warm = 0, lastDraw = 0;
+    var FIX = 1 / 120, minFrame = small ? 1000 / 30 : 0;
+    function warmup(done) {           // settle the cloth in small batches so the page never stalls
+      var n = 0; while (warm < 240 && n < 40) { step(FIX); warm++; n++; }
+      if (warm < 240) global.requestAnimationFrame(function () { warmup(done); }); else done();
+    }
     function frame(ts) {
       if (!running) return;
-      var dt = last ? Math.min(0.033, (ts - last) / 1000) : 1 / 60; last = ts;
-      var sub = 3; for (var s = 0; s < sub; s++) step(dt / sub);
-      draw(); raf = global.requestAnimationFrame(frame);
+      raf = global.requestAnimationFrame(frame);
+      if (minFrame && ts - lastDraw < minFrame) return;
+      var dt = last ? Math.min(0.1, (ts - last) / 1000) : 1 / 60; last = ts; lastDraw = ts;
+      acc += dt; var n = 0;
+      while (acc >= FIX && n < 8) { step(FIX); acc -= FIX; n++; }
+      if (n === 8) acc = 0;
+      draw();
     }
-    function start() { if (running || reduced || !visible) return; running = true; last = 0; raf = global.requestAnimationFrame(frame); }
+    function start() { if (running || reduced || paused || !visible || warm < 240) return; running = true; last = 0; acc = 0; raf = global.requestAnimationFrame(frame); }
     function stop() { running = false; if (raf) global.cancelAnimationFrame(raf); }
-    draw();
-    var io = global.IntersectionObserver ? new IntersectionObserver(function (e) { visible = e[0].isIntersecting; visible ? start() : stop(); }) : null;
-    if (io) io.observe(canvas); else start();
-    var onVis = function () { document.hidden ? stop() : start(); };
-    document.addEventListener('visibilitychange', onVis);
-    global.addEventListener('resize', function () { if (!running) draw(); });
-    return { destroy: function () { stop(); if (io) io.disconnect(); document.removeEventListener('visibilitychange', onVis); } };
+    var io = null, onVis = function () { document.hidden ? stop() : start(); };
+    warmup(function () {
+      draw(); canvas.classList.add('flag-ready');
+      if (global.IntersectionObserver) { io = new IntersectionObserver(function (e) { visible = e[0].isIntersecting; visible ? start() : stop(); }); io.observe(canvas); }
+      else start();
+      document.addEventListener('visibilitychange', onVis);
+      global.addEventListener('resize', function () { if (!running) draw(); });
+    });
+    return {
+      destroy: function () { stop(); if (io) io.disconnect(); document.removeEventListener('visibilitychange', onVis); },
+      pause: function () { paused = true; stop(); },
+      resume: function () { paused = false; start(); },
+      isPaused: function () { return paused || reduced; },
+      gust: function (amount) { gustTarget = Math.max(gustTarget, Math.min(0.15, amount)); }
+    };
   }
 
   global.IsraeliFlag3D = { mount: function (c, o) { try { return mount(c, o); } catch (e) { if (global.console) console.warn('flag3d', e); return null; } } };

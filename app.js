@@ -7,7 +7,7 @@ if (LYRICS_LICENSED) { /* lyric blocks would render only once rights are cleared
 
 // nav background on scroll
 const nav = document.getElementById('nav');
-const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 64);
 onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
 
 // scroll reveal
@@ -96,8 +96,8 @@ function renderAlbums(){
 const grid = document.getElementById('grid');
 function renderGrid(){
   grid.innerHTML = '';
-  releases.forEach((r, i) => {
-    const coming = r.status === 'coming';
+  releases.filter(r => r.status !== 'coming').forEach((r, i) => {
+    const coming = false;
     const title = (lang==='en' && r.titleEn) ? r.titleEn : (coming ? T[lang].soon : r.title);
     const card = document.createElement(coming ? 'div' : 'a');
     card.className = 'card ' + (coming ? 'card-coming' : '');
@@ -108,13 +108,13 @@ function renderGrid(){
     }
     card.innerHTML = `
       <div class="card-cover" ${coming ? '' : `style="background-image:url('${r.cover}')"`}>
-        ${coming ? `<span class="soon">${T[lang].soon}</span>` : '<span class="card-play">►</span>'}
+        ${coming ? `<span class="soon">${T[lang].soon}</span>` : '<span class="card-play"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3 17 10 5 17Z"/></svg></span>'}
       </div>
       <div class="card-meta">
         <span class="card-num">${HEB_ORD[i] || (i+1)}</span>
         <span class="card-title">${title}</span>
         <span class="card-dots" aria-hidden="true"></span>
-        <span class="card-year">${r.year || ''}</span>
+        <span class="card-year">${i === 0 ? '<i class="finial-dot" aria-hidden="true"></i>' : ''}${r.year || ''}</span>
       </div>`;
     grid.appendChild(card);
   });
