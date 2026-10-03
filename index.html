@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;700;900&family=Suez+One&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;700;900&family=Suez+One&display=swap" rel="stylesheet"></noscript>
-<link rel="stylesheet" href="style.css?v=20261003h1" />
+<link rel="stylesheet" href="style.css?v=20261003c7" />
 <script type="application/ld+json">
 {
   "@context":"https://schema.org","@type":"MusicGroup",
@@ -55,28 +55,29 @@
     <a href="#shows" data-he="הופעות" data-en="Shows">הופעות</a>
     <a href="#about" data-he="אודות" data-en="About">אודות</a>
     <a href="#contact" data-he="קשר" data-en="Contact">קשר</a>
-    <button class="lang-toggle" id="langToggle" aria-pressed="false" data-he-aria="החלף שפה לאנגלית" data-en-aria="Switch language to Hebrew" aria-label="החלף שפה לאנגלית">EN</button>
+    <button class="lang-toggle" id="langToggle" aria-pressed="false" data-he-aria="החלף שפה לאנגלית" data-en-aria="Switch language to Hebrew" aria-label="החלף שפה לאנגלית">English</button>
   </nav>
 </header>
 
 <main id="main">
 
-<section class="hero-v3" aria-labelledby="heroName">
+<section class="hero-v3 cinema" aria-labelledby="heroName">
   <div class="hv3-grid">
     <div class="hv3-text">
       <h1 id="heroName" class="hv3-name" data-he="שאול נעים" data-en="Shaul Naim">שאול נעים</h1>
+      <p class="hv3-psalm" lang="he" aria-label="הנה מה טוב ומה נעים, תהילים קל״ג"><span class="w">הנה</span> <span class="w">מה</span> <span class="w">טוב</span> <span class="w">ומה</span> <span class="w">נעים</span></p>
       <p class="hv3-desc"><span data-he="שירי ארץ ישראל" data-en="Songs of the Land of Israel">שירי ארץ ישראל</span><i class="stripes2" aria-hidden="true"></i><span data-he="שירה בציבור" data-en="Community singing">שירה בציבור</span></p>
       <div class="hv3-row">
         <div class="hv3-actions">
           <a class="btn-v3" href="#singles"><svg class="tri" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3 17 10 5 17Z"/></svg><span data-he="להאזנה" data-en="Listen">להאזנה</span></a>
           <a class="link-v3" href="#shows" data-he="למופעים" data-en="The shows">למופעים</a>
         </div>
-        <img class="hv3-photo" src="assets/portrait-color.jpg?v=20261003h1" width="1200" height="1500" alt="שאול נעים עם קלידית" data-he-alt="שאול נעים עם קלידית" data-en-alt="Shaul Naim with his keytar" fetchpriority="high" decoding="async">
+        <img class="hv3-photo" src="assets/portrait-color.jpg?v=20261003c7" width="1200" height="1500" alt="שאול נעים עם קלידית" data-he-alt="שאול נעים עם קלידית" data-en-alt="Shaul Naim with his keytar" fetchpriority="high" decoding="async">
       </div>
     </div>
     <div class="hv3-flag" aria-hidden="true">
       <canvas id="siteFlag"></canvas>
-      <img class="flag-still" src="assets/img/flag-still.webp?v=1" alt="" width="1200" height="871">
+      <img class="flag-still" src="assets/img/flag-still.webp?v=2" alt="" width="1440" height="900">
     </div>
     <button class="motion-v3" id="flagPause" type="button" aria-pressed="false" data-he="עצירת תנועה" data-en="Pause motion">עצירת תנועה</button>
   </div>
@@ -118,7 +119,6 @@
 <section id="shows" class="shows paper">
   <div class="container reveal">
     <div class="section-head">
-      <p class="psalm" lang="he"><span>הנה מה טוב ומה נעים</span><small data-he="תהילים קל״ג" data-en="Psalm 133">תהילים קל״ג</small></p>
       <h2 data-he="הופעות" data-en="Live Shows">הופעות</h2>
       <p class="section-sub" data-he="שירה בציבור · ערב שכולו שירים אהובים" data-en="Sing-along evenings of beloved Israeli classics">שירה בציבור · ערב שכולו שירים אהובים</p>
     </div>
@@ -182,19 +182,19 @@
   <p class="small">© <span id="yr"></span> שאול נעים / Shaul Naim</p>
 </footer>
 
-<script src="albums.js?v=20261003h1"></script>
-<script src="releases.js?v=20261003h1"></script>
-<script src="shows.js?v=20261003h1"></script>
-<script src="videos.js?v=20261003h1"></script>
-<script src="app.js?v=20261003h1"></script>
-<script src="flag3d.js?v=20261003h1"></script>
+<script src="albums.js?v=20261003c7"></script>
+<script src="releases.js?v=20261003c7"></script>
+<script src="shows.js?v=20261003c7"></script>
+<script src="videos.js?v=20261003c7"></script>
+<script src="app.js?v=20261003c7"></script>
+<script src="flag3d.js?v=20261003c7"></script>
 <script src="flag.js?v=20261003f2"></script>
 <script>
   (function(){
     var c = document.getElementById('siteFlag'); if(!c) return;
     var mobile = matchMedia('(max-width: 767px)').matches;
-    var cam = mobile ? { eye:[0.10,-0.40,4.70], target:[1.40,0.10,0.00], fov:0.66, wind:0.95 }
-                     : { eye:[-0.65,-0.70,5.00], target:[1.40,0.05,0.00], fov:0.58, wind:0.95 };
+    var cam = mobile ? { eye:[1.30,-0.75,2.35], target:[1.50,-0.30,0.00], fov:1.0, wind:0.95 }
+                     : { eye:[0.95,-0.55,2.75], target:[1.55,0.02,0.00], fov:0.66, wind:0.95 };
     var flag = window.IsraeliFlag3D && IsraeliFlag3D.mount(c, cam);
     if(!flag && window.IsraeliFlag){ var st=c.parentNode.querySelector('.flag-still'); if(st) st.style.display='none'; IsraeliFlag.mount(c, { transparentBackground:true, windStrength:1, showPole:true }); }
     var btn = document.getElementById('flagPause');
