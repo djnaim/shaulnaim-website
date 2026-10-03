@@ -2,49 +2,56 @@
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>אלבום · שאול נעים</title>
-<meta name="description" content="אלבום של שאול נעים · שירי ארץ ישראל, להשיג אונליין." />
-<meta name="theme-color" content="#0038B8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>אלבום | שאול נעים</title>
+<meta name="description" content="אלבום של שאול נעים, שירי ארץ ישראל." />
+<meta property="og:image" content="https://shaulnaim.com/assets/og-share.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="theme-color" content="#FFFFFF" />
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;700;900&family=Suez+One&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20261003c" />
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=20261003r1" />
 </head>
 <body data-page="album">
 
-<a class="skip-link" href="#detailBody" data-he="דלג לתוכן" data-en="Skip to content">דלג לתוכן</a>
-<div class="thread" aria-hidden="true"></div>
-<div class="thread-bead" id="threadBead" aria-hidden="true"></div>
+<a class="skip-link" href="#main" data-he="דלג לתוכן" data-en="Skip to content">דלג לתוכן</a>
 
-<header class="nav scrolled" id="nav">
-  <a class="brand" href="index.html" data-he="שאול נעים" data-en="Shaul Naim">שאול נעים</a>
-  <nav aria-label="ניווט ראשי">
-    <a href="index.html#albums" data-he="אלבומים" data-en="Albums">אלבומים</a>
-    <a href="index.html#singles" data-he="סינגלים" data-en="Singles">סינגלים</a>
-    <a href="index.html#about" data-he="אודות" data-en="About">אודות</a>
-    <a href="index.html#shows" data-he="הופעות" data-en="Live Shows">הופעות</a>
-    <a href="index.html#gallery" data-he="וידאו קליפים" data-en="Video Clips">וידאו קליפים</a>
-    <a href="index.html#music" data-he="מוזיקה" data-en="Music">מוזיקה</a>
-    <a href="index.html#contact" data-he="צור קשר" data-en="Contact">צור קשר</a>
-    <button class="lang-toggle" id="langToggle" aria-pressed="false" data-he-aria="החלף שפה לאנגלית" data-en-aria="Switch language to Hebrew" aria-label="החלף שפה לאנגלית">EN</button>
-  </nav>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="index.html" data-he="שאול נעים" data-en="Shaul Naim">שאול נעים</a>
+    <nav class="main-nav" id="mainNav" aria-label="ניווט ראשי" data-he-aria="ניווט ראשי" data-en-aria="Main navigation">
+      <a href="index.html#shows" data-he="המופעים" data-en="Shows">המופעים</a>
+      <a href="index.html#songs" data-he="השירים" data-en="The songs">השירים</a>
+      <a href="index.html#music" data-he="המוזיקה" data-en="Music">המוזיקה</a>
+      <a href="index.html#about" data-he="על שאול" data-en="About Shaul">על שאול</a>
+    </nav>
+    <div class="header-actions">
+      <button class="lang-toggle" id="langToggle" type="button" lang="en" aria-label="Switch to English">English</button>
+      <a class="btn btn-primary btn-sm header-book" href="index.html#booking" data-he="להזמנת מופע" data-en="Book a show">להזמנת מופע</a>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav" data-he="תפריט" data-en="Menu">תפריט</button>
+    </div>
+  </div>
 </header>
 
-<main>
-  <section class="detail-panel cropped paper" id="detailPanel"><!-- title panel by detail.js --></section>
-  <section class="detail-body"><div class="inner" id="detailBody"><!-- content by detail.js --></div></section>
+<main id="main">
+  <section class="detail-hero"><div class="wrap" id="detailHero"></div></section>
+  <section class="detail-body"><div class="wrap" id="detailBody"></div></section>
 </main>
 
-<footer>
-  <p data-he="שאול נעים &nbsp;·&nbsp; שירי ארץ ישראל" data-en="Shaul Naim &nbsp;·&nbsp; Songs of the Land of Israel">שאול נעים &nbsp;·&nbsp; שירי ארץ ישראל</p>
-  <p class="small"><a href="accessibility.html" data-he="הצהרת נגישות" data-en="Accessibility Statement">הצהרת נגישות</a></p>
-  <p class="small">© <span id="yr"></span> שאול נעים / Shaul Naim</p>
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <p class="footer-brand" data-he="שאול נעים, שירה בציבור" data-en="Shaul Naim, Israeli sing-along shows">שאול נעים, שירה בציבור</p>
+    <p><a href="tel:+972522511351" dir="ltr">052-251-1351</a> <a href="mailto:hello@shaulnaim.com" dir="ltr">hello@shaulnaim.com</a></p>
+    <p><a href="accessibility.html" data-he="הצהרת נגישות" data-en="Accessibility statement">הצהרת נגישות</a></p>
+  </div>
 </footer>
 
-<script src="albums.js?v=20261003c"></script>
-<script src="detail.js?v=20261003c"></script>
+<script src="shows.js?v=20261003r1"></script>
+<script src="albums.js?v=20261003r1"></script>
+<script src="detail.js?v=20261003r1"></script>
 </body>
 </html>
