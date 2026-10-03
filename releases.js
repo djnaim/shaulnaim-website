@@ -31,8 +31,9 @@ window.RELEASES = [
     blurb: "ביצוע חדש ומרגש לאחד משיריה היפים של נעמי שמר.",
     blurbEn: "A heartfelt new rendition of one of Naomi Shemer's most beloved songs.",
     cover: "assets/releases/ani-gitara/cover.jpg",
+    youtubeId: "a3CdF9rAQ_s",
     spotify: "https://open.spotify.com/artist/5axEq9NvsVnVoP2zXl4YhD",
-    youtube: "https://www.youtube.com/@ShaulNaimOfficial",
+    youtube: "https://youtu.be/a3CdF9rAQ_s",
     status: "released"
   },
 
