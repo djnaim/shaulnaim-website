@@ -1,0 +1,10 @@
+{
+  "name": "shaulnaim-website",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "shaulnaim.com static site + compliance gate (preflight).",
+  "scripts": {
+    "preflight": "node scripts/preflight/index.mjs"
+  }
+}

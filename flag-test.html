@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Israeli Flag — Cloth Simulation Test</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 16'%3E%3Crect width='22' height='16' fill='white'/%3E%3Crect y='2' width='22' height='2' fill='%230038B8'/%3E%3Crect y='12' width='22' height='2' fill='%230038B8'/%3E%3C/svg%3E">
+
+  <style>
+    html, body { margin: 0; height: 100%; background: #0A1E4A; overflow: hidden; }
+    #flag { display: block; width: 100vw; height: 100vh; }
+  </style>
+</head>
+<body>
+  <canvas id="flag"></canvas>
+  <script src="flag.js"></script>
+  <script>
+    window.__flagHandle = IsraeliFlag.mount(document.getElementById('flag'), {
+      transparentBackground: true, // sits on the navy body background
+      windStrength: 1,
+      poleColor: '#C9A227',
+      showPole: true
+    });
+  </script>
+</body>
+</html>

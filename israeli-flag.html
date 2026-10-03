@@ -1,0 +1,473 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Israeli Flag — Cloth Simulation</title>
+<style>
+  /* ---- Layout & sky background ------------------------------------------ */
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #0b1220; }
+  #sky {
+    position: fixed; inset: 0;
+    /* Soft sky gradient so the white field of the flag reads clearly */
+    background: linear-gradient(180deg, #9fc 0%, #bcd8f5 32%, #dcebfb 62%, #f3f8ff 100%);
+  }
+  @media (prefers-color-scheme: dark) {
+    #sky { background: linear-gradient(180deg, #12325e 0%, #1c4a86 40%, #2f6bb0 75%, #6a9fd4 100%); }
+  }
+  canvas { position: fixed; inset: 0; display: block; touch-action: none; }
+
+  /* ---- Controls --------------------------------------------------------- */
+  #ui {
+    position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 16px; border-radius: 999px;
+    background: rgba(15, 26, 48, 0.55); backdrop-filter: blur(8px);
+    color: #eaf1ff; font: 13px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    box-shadow: 0 6px 24px rgba(0,0,0,.25); user-select: none; z-index: 10;
+  }
+  #ui label { opacity: .85; letter-spacing: .02em; }
+  #wind { width: 160px; accent-color: #0038B8; cursor: pointer; }
+  #ui .hint { opacity: .6; font-size: 11px; }
+</style>
+
+<div id="sky"></div>
+<canvas id="c"></canvas>
+<div id="ui">
+  <label for="wind">Wind</label>
+  <input id="wind" type="range" min="0" max="100" value="55" />
+  <span class="hint">drag the flag to gust it</span>
+</div>
+
+<script>
+"use strict";
+(function () {
+  // =====================================================================
+  // Israeli flag — photorealistic waving cloth.
+  // Mass-spring particle grid + Verlet integration (structural/shear/bend
+  // constraints), layered-noise wind with gravity, left edge pinned to a
+  // gold-finial pole, per-quad normal shading, and a warped flag texture
+  // mapped triangle-by-triangle onto the deformed mesh.
+  // =====================================================================
+
+  var canvas = document.getElementById("c");
+  var ctx = canvas.getContext("2d", { alpha: true });
+  var windSlider = document.getElementById("wind");
+
+  var REDUCED = window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // ---- Simulation grid (dense mass-spring cloth) ------------------------
+  var COLS = 46;               // particles across (11:8 flag → wider than tall)
+  var ROWS = 33;               // particles down
+  var flagAspect = 11 / 8;     // Israeli flag proportions (width:height)
+
+  // Geometry, recomputed on resize so the flag scales with the window.
+  var poleX = 0, topY = 0, flagW = 0, flagH = 0, spacingX = 0, spacingY = 0;
+
+  // ---- Physics tunables --------------------------------------------------
+  var GRAVITY = 320;           // px/s^2 downward → flag droops when wind eases
+  var DAMP = 0.985;            // Verlet velocity damping
+  var CONSTRAINT_ITERS = 4;    // relaxation passes per step
+  var SUBSTEPS = 2;            // sub-steps per frame for stability
+  var LIGHT = normalize3(-0.35, -0.45, 0.82); // key light direction
+
+  // Particle state as flat typed arrays for speed.
+  var N = COLS * ROWS;
+  var px = new Float32Array(N), py = new Float32Array(N), pz = new Float32Array(N);
+  var ox = new Float32Array(N), oy = new Float32Array(N), oz = new Float32Array(N);
+  var pinned = new Uint8Array(N);
+  // Per-vertex normals (recomputed each frame; drive both wind catch + shading).
+  var nx = new Float32Array(N), ny = new Float32Array(N), nz = new Float32Array(N);
+
+  // Springs: {a,b,rest}. Built once (rest length updates on resize via factor).
+  var springs = [];
+
+  function idx(c, r) { return r * COLS + c; }
+
+  // ---- Offscreen flag texture (drawn once, then warped onto the mesh) ----
+  var tex = document.createElement("canvas");
+  var texW = 770, texH = 560;  // 11:8 exactly (×70)
+  tex.width = texW; tex.height = texH;
+  drawFlagTexture(tex.getContext("2d"), texW, texH);
+
+  function drawFlagTexture(g, W, H) {
+    // White field
+    g.fillStyle = "#FFFFFF";
+    g.fillRect(0, 0, W, H);
+
+    var blue = "#0038B8";
+    var band = H / 8;          // each blue stripe is ~1/8 of flag height
+    var inset = H / 8;         // stripes inset ~1/8 from top and bottom edges
+
+    // Two horizontal blue stripes
+    g.fillStyle = blue;
+    g.fillRect(0, inset, W, band);                 // top stripe
+    g.fillRect(0, H - inset - band, W, band);       // bottom stripe
+
+    // Star of David (Magen David): two overlapping equilateral triangles,
+    // drawn as outlined hexagram, centered between the stripes.
+    var cx = W / 2;
+    var cy = H / 2;
+    var innerTop = inset + band;          // inner edge of top stripe
+    var innerBot = H - inset - band;      // inner edge of bottom stripe
+    var R = (innerBot - innerTop) * 0.46; // outer radius, fits between stripes
+    var lw = R * 0.165;                   // stroke width proportional to star
+
+    g.strokeStyle = blue;
+    g.lineWidth = lw;
+    g.lineJoin = "miter";
+    g.miterLimit = 6;
+
+    // Upward triangle: vertices at -90°, 30°, 150°
+    triPath(g, cx, cy, R, -90);
+    g.stroke();
+    // Downward triangle: vertices at 90°, 210°, 330°
+    triPath(g, cx, cy, R, 90);
+    g.stroke();
+  }
+
+  function triPath(g, cx, cy, R, startDeg) {
+    g.beginPath();
+    for (var i = 0; i < 3; i++) {
+      var a = (startDeg + i * 120) * Math.PI / 180;
+      var x = cx + R * Math.cos(a);
+      var y = cy + R * Math.sin(a);
+      if (i === 0) g.moveTo(x, y); else g.lineTo(x, y);
+    }
+    g.closePath();
+  }
+
+  // ---- Build the mesh and springs ---------------------------------------
+  function buildCloth() {
+    for (var r = 0; r < ROWS; r++) {
+      for (var c = 0; c < COLS; c++) {
+        var i = idx(c, r);
+        var x = poleX + c * spacingX;
+        var y = topY + r * spacingY;
+        px[i] = ox[i] = x;
+        py[i] = oy[i] = y;
+        pz[i] = oz[i] = 0;
+        pinned[i] = (c === 0) ? 1 : 0;  // pin the LEFT edge to the flagpole
+      }
+    }
+
+    springs.length = 0;
+    for (var r2 = 0; r2 < ROWS; r2++) {
+      for (var c2 = 0; c2 < COLS; c2++) {
+        // Structural (right / down)
+        if (c2 < COLS - 1) addSpring(idx(c2, r2), idx(c2 + 1, r2));
+        if (r2 < ROWS - 1) addSpring(idx(c2, r2), idx(c2, r2 + 1));
+        // Shear (diagonals)
+        if (c2 < COLS - 1 && r2 < ROWS - 1) {
+          addSpring(idx(c2, r2), idx(c2 + 1, r2 + 1));
+          addSpring(idx(c2 + 1, r2), idx(c2, r2 + 1));
+        }
+        // Bend (skip one) — keeps fabric from collapsing, adds stiffness
+        if (c2 < COLS - 2) addSpring(idx(c2, r2), idx(c2 + 2, r2));
+        if (r2 < ROWS - 2) addSpring(idx(c2, r2), idx(c2, r2 + 2));
+      }
+    }
+  }
+
+  function addSpring(a, b) {
+    var dx = px[a] - px[b], dy = py[a] - py[b], dz = pz[a] - pz[b];
+    springs.push({ a: a, b: b, rest: Math.sqrt(dx * dx + dy * dy + dz * dz) });
+  }
+
+  // ---- Wind: layered sinusoidal noise → organic, non-repeating gusts -----
+  function windVec(x, y, t, out) {
+    var s = windStrength();
+    // Multiple frequencies/phases summed so gusts never cleanly repeat.
+    var gust = 0.55
+      + 0.35 * Math.sin(t * 0.7 + x * 0.010)
+      + 0.22 * Math.sin(t * 1.9 - y * 0.014 + 1.3)
+      + 0.14 * Math.sin(t * 3.7 + x * 0.03 + y * 0.02);
+    gust = Math.max(0, gust);
+    var flutter = 0.6 * Math.sin(t * 6.0 + x * 0.05 + y * 0.04)
+                + 0.4 * Math.sin(t * 9.3 - x * 0.02);
+    out[0] = s * (60 + 140 * gust);            // push to the right (+x)
+    out[1] = s * (18 * Math.sin(t * 2.1 + y * 0.03)); // gentle vertical sway
+    out[2] = s * (110 * gust + 60 * flutter);  // billow out of / into screen (+z)
+  }
+
+  function windStrength() { return (+windSlider.value) / 100 * 1.7; }
+
+  // ---- Compute per-vertex normals from the 3D deformed positions ---------
+  function computeNormals() {
+    for (var r = 0; r < ROWS; r++) {
+      for (var c = 0; c < COLS; c++) {
+        var i = idx(c, r);
+        var l = c > 0 ? idx(c - 1, r) : i;
+        var rr = c < COLS - 1 ? idx(c + 1, r) : i;
+        var u = r > 0 ? idx(c, r - 1) : i;
+        var d = r < ROWS - 1 ? idx(c, r + 1) : i;
+        // Tangents along x and y of the surface
+        var tx = px[rr] - px[l], ty = py[rr] - py[l], tz = pz[rr] - pz[l];
+        var bx = px[d] - px[u], by = py[d] - py[u], bz = pz[d] - pz[u];
+        // Normal = tangent × bitangent
+        var cxn = ty * bz - tz * by;
+        var cyn = tz * bx - tx * bz;
+        var czn = tx * by - ty * bx;
+        var len = Math.sqrt(cxn * cxn + cyn * cyn + czn * czn) || 1;
+        // Keep normals facing the viewer (+z) so lighting is consistent
+        var sgn = czn < 0 ? -1 : 1;
+        nx[i] = cxn / len * sgn; ny[i] = cyn / len * sgn; nz[i] = czn / len * sgn;
+      }
+    }
+  }
+
+  // ---- One physics step (Verlet + constraint relaxation) ----------------
+  var wv = [0, 0, 0];
+  function step(dt, t) {
+    computeNormals(); // normals from previous frame drive the wind "catch"
+
+    var dt2 = dt * dt;
+    for (var i = 0; i < N; i++) {
+      if (pinned[i]) continue;
+
+      windVec(px[i], py[i], t, wv);
+      // Cloth catches wind along its normal (billow) + a little air drag.
+      var dot = wv[0] * nx[i] + wv[1] * ny[i] + wv[2] * nz[i];
+      var fx = wv[0] * 0.25 + nx[i] * dot * 0.9;
+      var fy = wv[1] * 0.25 + ny[i] * dot * 0.9 + GRAVITY;
+      var fz = wv[2] * 0.25 + nz[i] * dot * 0.9;
+
+      // Verlet: x' = x + (x - xprev)*damp + a*dt^2
+      var vx = (px[i] - ox[i]) * DAMP;
+      var vy = (py[i] - oy[i]) * DAMP;
+      var vz = (pz[i] - oz[i]) * DAMP;
+      ox[i] = px[i]; oy[i] = py[i]; oz[i] = pz[i];
+      px[i] += vx + fx * dt2;
+      py[i] += vy + fy * dt2;
+      pz[i] += vz + fz * dt2;
+    }
+
+    // Pointer drag force (adds a local gust where the user grabs)
+    applyPointerForce();
+
+    // Relax constraints several times so the fabric holds together.
+    for (var k = 0; k < CONSTRAINT_ITERS; k++) {
+      for (var s = 0; s < springs.length; s++) satisfy(springs[s]);
+    }
+  }
+
+  function satisfy(sp) {
+    var a = sp.a, b = sp.b;
+    var dx = px[b] - px[a], dy = py[b] - py[a], dz = pz[b] - pz[a];
+    var d = Math.sqrt(dx * dx + dy * dy + dz * dz) || 1e-6;
+    var diff = (d - sp.rest) / d * 0.5; // move each endpoint half the error
+    var mx = dx * diff, my = dy * diff, mz = dz * diff;
+    var pa = pinned[a], pb = pinned[b];
+    if (pa && pb) return;
+    if (!pa && !pb) {
+      px[a] += mx; py[a] += my; pz[a] += mz;
+      px[b] -= mx; py[b] -= my; pz[b] -= mz;
+    } else if (pa) {           // a fixed → move only b (full correction)
+      px[b] -= mx * 2; py[b] -= my * 2; pz[b] -= mz * 2;
+    } else {                   // b fixed → move only a
+      px[a] += mx * 2; py[a] += my * 2; pz[a] += mz * 2;
+    }
+  }
+
+  // ---- Pointer interaction ----------------------------------------------
+  var pointer = { x: 0, y: 0, px: 0, py: 0, down: false, active: false };
+
+  function applyPointerForce() {
+    if (!pointer.down) return;
+    var vx = pointer.x - pointer.px;
+    var vy = pointer.y - pointer.py;
+    var radius = Math.max(flagW, flagH) * 0.18;
+    var r2 = radius * radius;
+    for (var i = 0; i < N; i++) {
+      if (pinned[i]) continue;
+      var sx = screenX(i), sy = screenY(i);
+      var dx = sx - pointer.x, dy = sy - pointer.y;
+      var dd = dx * dx + dy * dy;
+      if (dd < r2) {
+        var f = 1 - dd / r2;      // falloff toward the edge of the grab
+        px[i] += vx * 0.6 * f;
+        py[i] += vy * 0.6 * f;
+        pz[i] += (40 + 120 * f);  // pull toward the viewer for a real "tug"
+      }
+    }
+    pointer.px = pointer.x; pointer.py = pointer.y;
+  }
+
+  // ---- Projection: orthographic + slight z-skew for depth ---------------
+  function screenX(i) { return px[i] + pz[i] * 0.34; }
+  function screenY(i) { return py[i] - pz[i] * 0.10; }
+
+  // ---- Textured-triangle rasterizer (affine UV → screen) ----------------
+  // Classic Canvas-2D technique: clip to the triangle, then set an affine
+  // transform that maps texture space onto the three screen vertices.
+  function texTri(x0, y0, x1, y1, x2, y2, u0, v0, u1, v1, u2, v2) {
+    // Nudge vertices outward from the centroid to hide sub-pixel seams.
+    var gx = (x0 + x1 + x2) / 3, gy = (y0 + y1 + y2) / 3, e = 0.7;
+    x0 += (x0 - gx > 0 ? e : -e); y0 += (y0 - gy > 0 ? e : -e);
+    x1 += (x1 - gx > 0 ? e : -e); y1 += (y1 - gy > 0 ? e : -e);
+    x2 += (x2 - gx > 0 ? e : -e); y2 += (y2 - gy > 0 ? e : -e);
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.lineTo(x2, y2); ctx.closePath();
+    ctx.clip();
+
+    var delta = u0 * v1 - u1 * v0 + u1 * v2 - u2 * v1 + u2 * v0 - u0 * v2;
+    if (delta === 0) { ctx.restore(); return; }
+    var id = 1 / delta;
+    var a = (x0 * v1 - x1 * v0 + x1 * v2 - x2 * v1 + x2 * v0 - x0 * v2) * id;
+    var b = (y0 * v1 - y1 * v0 + y1 * v2 - y2 * v1 + y2 * v0 - y0 * v2) * id;
+    var cc = (u0 * x1 - u1 * x0 + u1 * x2 - u2 * x1 + u2 * x0 - u0 * x2) * id;
+    var d = (u0 * y1 - u1 * y0 + u1 * y2 - u2 * y1 + u2 * y0 - u0 * y2) * id;
+    var ex = (u0 * (v1 * x2 - v2 * x1) - u1 * (v0 * x2 - v2 * x0) + u2 * (v0 * x1 - v1 * x0)) * id;
+    var fy = (u0 * (v1 * y2 - v2 * y1) - u1 * (v0 * y2 - v2 * y0) + u2 * (v0 * y1 - v1 * y0)) * id;
+    ctx.transform(a, b, cc, d, ex, fy);
+    ctx.drawImage(tex, 0, 0);
+    ctx.restore();
+  }
+
+  // ---- Render the deformed, shaded, textured flag -----------------------
+  function render() {
+    ctx.clearRect(0, 0, cw, ch);
+    drawPole();
+
+    var uStep = texW / (COLS - 1);
+    var vStep = texH / (ROWS - 1);
+
+    for (var r = 0; r < ROWS - 1; r++) {
+      for (var c = 0; c < COLS - 1; c++) {
+        var i00 = idx(c, r), i10 = idx(c + 1, r);
+        var i01 = idx(c, r + 1), i11 = idx(c + 1, r + 1);
+
+        var ax = screenX(i00), ay = screenY(i00);
+        var bx = screenX(i10), by = screenY(i10);
+        var cx2 = screenX(i11), cy2 = screenY(i11);
+        var dx2 = screenX(i01), dy2 = screenY(i01);
+
+        var u0 = c * uStep, u1 = (c + 1) * uStep;
+        var v0 = r * vStep, v1 = (r + 1) * vStep;
+
+        // Two triangles map the quad's texture patch onto the warped mesh.
+        texTri(ax, ay, bx, by, cx2, cy2, u0, v0, u1, v0, u1, v1);
+        texTri(ax, ay, cx2, cy2, dx2, dy2, u0, v0, u1, v1, u0, v1);
+
+        // Per-quad shading from the averaged surface normal.
+        var anx = (nx[i00] + nx[i10] + nx[i11] + nx[i01]) * 0.25;
+        var any = (ny[i00] + ny[i10] + ny[i11] + ny[i01]) * 0.25;
+        var anz = (nz[i00] + nz[i10] + nz[i11] + nz[i01]) * 0.25;
+        var diff = anx * LIGHT[0] + any * LIGHT[1] + anz * LIGHT[2];
+        var bright = 0.6 + 0.7 * Math.max(0, diff); // ambient + diffuse
+
+        ctx.beginPath();
+        ctx.moveTo(ax, ay); ctx.lineTo(bx, by);
+        ctx.lineTo(cx2, cy2); ctx.lineTo(dx2, dy2); ctx.closePath();
+        if (bright < 1) {
+          // In shadow → darken (folds turning away from the light)
+          ctx.fillStyle = "rgba(6,14,34," + Math.min(0.55, (1 - bright) * 0.85) + ")";
+        } else {
+          // Facing the light → sheen highlight on the crests
+          ctx.fillStyle = "rgba(255,255,255," + Math.min(0.45, (bright - 1) * 0.75) + ")";
+        }
+        ctx.fill();
+      }
+    }
+  }
+
+  // ---- Flagpole with gold finial ball -----------------------------------
+  function drawPole() {
+    var topI = idx(0, 0), botI = idx(0, ROWS - 1);
+    var x = screenX(topI);
+    var yTop = screenY(topI);
+    var yBot = screenY(botI);
+    var poleTop = yTop - flagH * 0.14;
+    var poleBot = yBot + flagH * 0.30;
+    var w = Math.max(4, flagH * 0.018);
+
+    // Pole shaft (metallic vertical gradient)
+    var pg = ctx.createLinearGradient(x - w, 0, x + w, 0);
+    pg.addColorStop(0, "#6b7280");
+    pg.addColorStop(0.5, "#e5e7eb");
+    pg.addColorStop(1, "#4b5563");
+    ctx.fillStyle = pg;
+    ctx.fillRect(x - w / 2, poleTop, w, poleBot - poleTop);
+
+    // Gold finial ball at the top
+    var rad = w * 1.9;
+    var fg = ctx.createRadialGradient(
+      x - rad * 0.35, poleTop - rad * 0.35, rad * 0.15,
+      x, poleTop, rad);
+    fg.addColorStop(0, "#fff6c8");
+    fg.addColorStop(0.4, "#f4c430");
+    fg.addColorStop(0.8, "#c8901a");
+    fg.addColorStop(1, "#8a5a0c");
+    ctx.beginPath();
+    ctx.arc(x, poleTop, rad, 0, Math.PI * 2);
+    ctx.fillStyle = fg;
+    ctx.fill();
+  }
+
+  // ---- Utility ----------------------------------------------------------
+  function normalize3(x, y, z) {
+    var l = Math.sqrt(x * x + y * y + z * z) || 1;
+    return [x / l, y / l, z / l];
+  }
+
+  // ---- Resize / layout --------------------------------------------------
+  var cw = 0, ch = 0, dpr = 1;
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 1.6);
+    cw = window.innerWidth; ch = window.innerHeight;
+    canvas.width = Math.round(cw * dpr);
+    canvas.height = Math.round(ch * dpr);
+    canvas.style.width = cw + "px";
+    canvas.style.height = ch + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    // Size the flag to fit comfortably, honoring 11:8 aspect.
+    flagH = Math.min(ch * 0.55, cw * 0.55 / flagAspect);
+    flagW = flagH * flagAspect;
+    poleX = Math.max(cw * 0.14, 70);
+    topY = (ch - flagH) * 0.42;
+    spacingX = flagW / (COLS - 1);
+    spacingY = flagH / (ROWS - 1);
+
+    buildCloth();
+    // Let the fresh cloth settle a few steps so it never "pops" in.
+    for (var i = 0; i < 24; i++) step(1 / 60, i * 0.05);
+    if (REDUCED) { computeNormals(); render(); }
+  }
+
+  // ---- Pointer events ---------------------------------------------------
+  function setPointer(e) {
+    var t = e.touches ? e.touches[0] : e;
+    pointer.x = t.clientX; pointer.y = t.clientY;
+  }
+  canvas.addEventListener("pointerdown", function (e) {
+    setPointer(e); pointer.px = pointer.x; pointer.py = pointer.y; pointer.down = true;
+  });
+  window.addEventListener("pointermove", function (e) { setPointer(e); });
+  window.addEventListener("pointerup", function () { pointer.down = false; });
+  window.addEventListener("pointercancel", function () { pointer.down = false; });
+
+  window.addEventListener("resize", resize);
+
+  // ---- Main loop --------------------------------------------------------
+  var last = performance.now();
+  var simTime = 0;
+  function frame(now) {
+    var dt = Math.min((now - last) / 1000, 1 / 30); // clamp for stability
+    last = now;
+    // Fixed sub-steps keep the cloth stable regardless of frame rate.
+    var sub = dt / SUBSTEPS;
+    for (var s = 0; s < SUBSTEPS; s++) { simTime += sub; step(sub, simTime); }
+    computeNormals();
+    render();
+    requestAnimationFrame(frame);
+  }
+
+  // ---- Boot -------------------------------------------------------------
+  resize();
+  if (!REDUCED) {
+    requestAnimationFrame(frame);
+  }
+  // If reduced-motion is set, resize() already rendered one gentle static frame.
+})();
+</script>
