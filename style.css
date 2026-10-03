@@ -358,7 +358,7 @@ a.card:hover .card-title{background-position:-60% 0}
   outline:1px solid rgba(124,144,198,.35);outline-offset:7px;padding:clamp(44px,6vw,72px) clamp(28px,5vw,60px)}
 /* the waving Israeli flag flies above the nameplate on the hero */
 .flag-stage{display:flex;justify-content:center;margin:0 auto 10px}
-.flag-stage canvas{width:min(560px,82vw);aspect-ratio:3/2;height:auto;display:block}
+.flag-stage canvas{width:min(980px,96vw);aspect-ratio:16/10;height:auto;display:block;filter:drop-shadow(0 34px 38px rgba(10,30,74,.16))}
 .contact .section-head{text-align:center;margin-bottom:26px}
 .contact .section-head .eyebrow{color:var(--pom);padding-inline-start:0}
 .contact .section-head .eyebrow::before{display:none}

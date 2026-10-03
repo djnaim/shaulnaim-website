@@ -194,11 +194,14 @@
 <script src="shows.js?v=20261003c"></script>
 <script src="videos.js?v=20261003c"></script>
 <script src="app.js?v=20261003c"></script>
-<script src="flag.js?v=20261003c"></script>
+<script src="flag3d.js?v=20261003g3"></script>
+<script src="flag.js?v=20261003f2"></script>
 <script>
   (function(){
     var c = document.getElementById('siteFlag');
-    if(c && window.IsraeliFlag){
+    if(!c) return;
+    var ok = window.IsraeliFlag3D && IsraeliFlag3D.mount(c, {});
+    if(!ok && window.IsraeliFlag){
       IsraeliFlag.mount(c, { transparentBackground:true, windStrength:1, poleColor:'#5B6A8F', showPole:true });
     }
   })();
