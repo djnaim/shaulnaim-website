@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;700;900&family=Suez+One&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;700;900&family=Suez+One&display=swap" rel="stylesheet"></noscript>
-<link rel="stylesheet" href="style.css?v=20261003c" />
+<link rel="stylesheet" href="style.css?v=20261003h1" />
 <script type="application/ld+json">
 {
   "@context":"https://schema.org","@type":"MusicGroup",
@@ -51,45 +51,43 @@
 <header class="nav" id="nav">
   <a class="brand" href="#main" data-he="שאול נעים" data-en="Shaul Naim">שאול נעים</a>
   <nav aria-label="ניווט ראשי">
-    <a href="#albums" data-he="אלבומים" data-en="Albums">אלבומים</a>
-    <a href="#singles" data-he="סינגלים" data-en="Singles">סינגלים</a>
+    <a href="#singles" data-he="מוזיקה" data-en="Music">מוזיקה</a>
+    <a href="#shows" data-he="הופעות" data-en="Shows">הופעות</a>
     <a href="#about" data-he="אודות" data-en="About">אודות</a>
-    <a href="#shows" data-he="הופעות" data-en="Live Shows">הופעות</a>
-    <a href="#gallery" data-he="וידאו קליפים" data-en="Video Clips">וידאו קליפים</a>
-    <a href="#music" data-he="מוזיקה" data-en="Music">מוזיקה</a>
-    <a href="#contact" data-he="צור קשר" data-en="Contact">צור קשר</a>
+    <a href="#contact" data-he="קשר" data-en="Contact">קשר</a>
     <button class="lang-toggle" id="langToggle" aria-pressed="false" data-he-aria="החלף שפה לאנגלית" data-en-aria="Switch language to Hebrew" aria-label="החלף שפה לאנגלית">EN</button>
   </nav>
 </header>
 
 <main id="main">
 
-<section class="hero cropped paper">
-  <span class="sweep" aria-hidden="true"></span>
-  <div class="flag-stage" aria-hidden="true"><canvas id="siteFlag"></canvas></div>
-  <h1 class="nameplate" data-he="שאול נעים" data-en="Shaul Naim">שאול נעים</h1>
-  <span class="eyebrow" data-he="שירי ארץ ישראל · שירה בציבור" data-en="Songs of the Land of Israel · Community Singing">שירי ארץ ישראל · שירה בציבור</span>
-  <div class="marquee" id="marquee" role="img"
-       data-he-aria="הנה מה טוב ומה נעים" data-en-aria="Hine ma tov uma na'im - how good and how pleasant (Psalm 133)"
-       aria-label="הנה מה טוב ומה נעים">
-    <span class="word">הנה</span> <span class="word">מה</span> <span class="word">טוב</span> <span class="word">ומה</span> <span class="word">נעים</span>
+<section class="hero-v3" aria-labelledby="heroName">
+  <div class="hv3-grid">
+    <div class="hv3-text">
+      <h1 id="heroName" class="hv3-name" data-he="שאול נעים" data-en="Shaul Naim">שאול נעים</h1>
+      <p class="hv3-desc"><span data-he="שירי ארץ ישראל" data-en="Songs of the Land of Israel">שירי ארץ ישראל</span><i class="stripes2" aria-hidden="true"></i><span data-he="שירה בציבור" data-en="Community singing">שירה בציבור</span></p>
+      <div class="hv3-row">
+        <div class="hv3-actions">
+          <a class="btn-v3" href="#singles"><svg class="tri" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3 17 10 5 17Z"/></svg><span data-he="להאזנה" data-en="Listen">להאזנה</span></a>
+          <a class="link-v3" href="#shows" data-he="למופעים" data-en="The shows">למופעים</a>
+        </div>
+        <img class="hv3-photo" src="assets/portrait-color.jpg?v=20261003h1" width="1200" height="1500" alt="שאול נעים עם קלידית" data-he-alt="שאול נעים עם קלידית" data-en-alt="Shaul Naim with his keytar" fetchpriority="high" decoding="async">
+      </div>
+    </div>
+    <div class="hv3-flag" aria-hidden="true">
+      <canvas id="siteFlag"></canvas>
+      <img class="flag-still" src="assets/img/flag-still.webp?v=1" alt="" width="1200" height="871">
+    </div>
+    <button class="motion-v3" id="flagPause" type="button" aria-pressed="false" data-he="עצירת תנועה" data-en="Pause motion">עצירת תנועה</button>
   </div>
-  <p class="sub" data-he="נשיר ביחד את שירת הארץ היפה" data-en="We'll sing the song of this beautiful land, together.">נשיר ביחד את שירת הארץ היפה</p>
-  <div class="hero-cta">
-    <a class="btn btn-pom" href="#shows" data-he="למופעים" data-en="The Shows">למופעים</a>
-    <a class="btn btn-outline" href="#music" data-he="להאזנה" data-en="Listen">להאזנה</a>
-  </div>
-  <a href="#singles" class="scroll-hint" data-he-aria="גלול" data-en-aria="Scroll" aria-label="גלול">♪</a>
 </section>
-
-<div class="gutter" aria-hidden="true"></div>
 
 <section id="singles" class="singles">
   <div class="container reveal">
     <div class="section-head">
-      <span class="eyebrow" data-he="התקליטים" data-en="The Records">התקליטים</span>
-      <h2 data-he="סינגלים" data-en="Singles">סינגלים</h2>
-      <p class="section-sub" data-he="לחצו על סינגל לצפייה והאזנה" data-en="Tap a single to watch and listen">לחצו על סינגל לצפייה והאזנה</p>
+      <span class="eyebrow v3-eyebrow"><i class="stripes2" aria-hidden="true"></i><span data-he="2026" data-en="2026">2026</span><i class="finial-dot" aria-hidden="true"></i></span>
+      <h2 data-he="ביצועים חדשים" data-en="New renditions">ביצועים חדשים</h2>
+      <p class="section-sub" data-he="שירים אהובים, בקולו של שאול" data-en="Beloved songs, in Shaul's voice">שירים אהובים, בקולו של שאול</p>
     </div>
     <div class="grid" id="grid"></div>
   </div>
@@ -108,14 +106,11 @@
 
 <section id="about" class="about paper">
   <div class="container about-inner reveal">
-    <figure class="portrait-plate">
-      <img class="portrait" src="assets/portrait-color.jpg?v=20261003c" alt="שאול נעים עם קלידית, על רקע קיר גרפיטי צבעוני" width="1200" height="1500" loading="lazy" decoding="async" />
-          </figure>
     <div class="about-text">
       <span class="eyebrow" data-he="הזמר" data-en="The Singer">הזמר</span>
       <h2 data-he="אודות" data-en="About">אודות</h2>
       <p class="lead" data-he="שאול נעים הוא זמר, מוזיקאי ואמן במה ישראלי, המופיע בהופעות חיות ברחבי הארץ ובעולם. הוא מביא ביצועים חדשים ומרגשים לאוצר הזמר העברי ולשירי ארץ ישראל, מבצע, מעבד ומפיק שירים אהובים ומחדש אותם בקולו ובנגינתו." data-en="Shaul Naim is an Israeli singer, musician, and live performer who appears on stages across Israel and around the world. He brings fresh, heartfelt renditions to the treasury of Hebrew song and the Songs of the Land of Israel, performing, arranging, and producing beloved songs and renewing them with his voice and his playing.">שאול נעים הוא זמר, מוזיקאי ואמן במה ישראלי, המופיע בהופעות חיות ברחבי הארץ ובעולם. הוא מביא ביצועים חדשים ומרגשים לאוצר הזמר העברי ולשירי ארץ ישראל, מבצע, מעבד ומפיק שירים אהובים ומחדש אותם בקולו ובנגינתו.</p>
-      <p data-he="בימים אלה משחרר שאול סדרת סינגלים חדשים, מתוך אהבתו הגדולה לזמר העברי." data-en="Shaul is now releasing a series of new singles, out of his deep love for Hebrew song.">בימים אלה משחרר שאול סדרת סינגלים חדשים, מתוך אהבתו הגדולה לזמר העברי.</p>
+      <p data-he="בימים אלה משחרר שאול סדרה של ביצועים חדשים, מתוך אהבתו הגדולה לזמר העברי." data-en="Shaul is now releasing a series of new renditions, out of his deep love for Hebrew song.">בימים אלה משחרר שאול סדרה של ביצועים חדשים, מתוך אהבתו הגדולה לזמר העברי.</p>
     </div>
   </div>
 </section>
@@ -123,7 +118,7 @@
 <section id="shows" class="shows paper">
   <div class="container reveal">
     <div class="section-head">
-      <span class="eyebrow" data-he="תוכן העניינים" data-en="Table of Contents">תוכן העניינים</span>
+      <p class="psalm" lang="he"><span>הנה מה טוב ומה נעים</span><small data-he="תהילים קל״ג" data-en="Psalm 133">תהילים קל״ג</small></p>
       <h2 data-he="הופעות" data-en="Live Shows">הופעות</h2>
       <p class="section-sub" data-he="שירה בציבור · ערב שכולו שירים אהובים" data-en="Sing-along evenings of beloved Israeli classics">שירה בציבור · ערב שכולו שירים אהובים</p>
     </div>
@@ -164,7 +159,7 @@
 <section id="contact" class="contact">
   <div class="container reveal">
     <div class="section-head">
-      <span class="eyebrow" data-he="קולופון" data-en="Colophon">קולופון</span>
+      
       <h2 data-he="צור קשר" data-en="Contact">צור קשר</h2>
       <p class="section-sub" data-he="להופעות, שיתופי פעולה ופניות" data-en="For shows, collaborations, and inquiries">להופעות, שיתופי פעולה ופניות</p>
     </div>
@@ -172,13 +167,11 @@
       <a class="btn btn-pom" href="tel:+972522511351" data-he-aria="התקשרו 052-251-1351" data-en-aria="Call 052-251-1351" aria-label="התקשרו 052-251-1351">052-251-1351</a>
       <a class="btn btn-outline" href="mailto:hello@shaulnaim.com">hello@shaulnaim.com</a>
     </div>
-    <p class="imprint" data-he="הודפס בירושלים · שירי ארץ ישראל" data-en="Printed in Jerusalem · Songs of the Land of Israel">הודפס בירושלים · שירי ארץ ישראל</p>
     <div class="social">
       <a href="https://open.spotify.com/artist/5axEq9NvsVnVoP2zXl4YhD" target="_blank" rel="noopener">Spotify</a>
       <a href="https://www.youtube.com/@ShaulNaimOfficial" target="_blank" rel="noopener">YouTube</a>
     </div>
   </div>
-  <div class="seal-here" aria-hidden="true"></div>
 </section>
 
 </main>
@@ -189,20 +182,46 @@
   <p class="small">© <span id="yr"></span> שאול נעים / Shaul Naim</p>
 </footer>
 
-<script src="albums.js?v=20261003c"></script>
-<script src="releases.js?v=20261003c"></script>
-<script src="shows.js?v=20261003c"></script>
-<script src="videos.js?v=20261003c"></script>
-<script src="app.js?v=20261003c"></script>
-<script src="flag3d.js?v=20261003g3"></script>
+<script src="albums.js?v=20261003h1"></script>
+<script src="releases.js?v=20261003h1"></script>
+<script src="shows.js?v=20261003h1"></script>
+<script src="videos.js?v=20261003h1"></script>
+<script src="app.js?v=20261003h1"></script>
+<script src="flag3d.js?v=20261003h1"></script>
 <script src="flag.js?v=20261003f2"></script>
 <script>
   (function(){
-    var c = document.getElementById('siteFlag');
-    if(!c) return;
-    var ok = window.IsraeliFlag3D && IsraeliFlag3D.mount(c, {});
-    if(!ok && window.IsraeliFlag){
-      IsraeliFlag.mount(c, { transparentBackground:true, windStrength:1, poleColor:'#5B6A8F', showPole:true });
+    var c = document.getElementById('siteFlag'); if(!c) return;
+    var mobile = matchMedia('(max-width: 767px)').matches;
+    var cam = mobile ? { eye:[0.10,-0.40,4.70], target:[1.40,0.10,0.00], fov:0.66, wind:0.95 }
+                     : { eye:[-0.65,-0.70,5.00], target:[1.40,0.05,0.00], fov:0.58, wind:0.95 };
+    var flag = window.IsraeliFlag3D && IsraeliFlag3D.mount(c, cam);
+    if(!flag && window.IsraeliFlag){ var st=c.parentNode.querySelector('.flag-still'); if(st) st.style.display='none'; IsraeliFlag.mount(c, { transparentBackground:true, windStrength:1, showPole:true }); }
+    var btn = document.getElementById('flagPause');
+    if(!flag || flag.isPaused()){ if(btn) btn.hidden = true; }
+    else {
+      btn.addEventListener('click', function(){
+        var p = btn.getAttribute('aria-pressed') !== 'true';
+        p ? flag.pause() : flag.resume();
+        btn.setAttribute('aria-pressed', String(p));
+        var he = document.documentElement.lang !== 'en';
+        btn.textContent = p ? (he ? 'הפעלת תנועה' : 'Play motion') : (he ? 'עצירת תנועה' : 'Pause motion');
+      });
+      // pointer gust: faster pointer, stronger gust (desktop only)
+      var lx = 0, ly = 0, lt = 0;
+      c.parentNode.addEventListener('pointermove', function(e){
+        if(e.pointerType !== 'mouse') return;
+        var now = performance.now(), dt = Math.max(16, now - lt);
+        var v = Math.hypot(e.clientX - lx, e.clientY - ly) / dt * 1000;
+        lx = e.clientX; ly = e.clientY; lt = now;
+        flag.gust(Math.min(800, v) / 800 * 0.15);
+      });
+      // desktop: the flag lags 24px behind the text over the first 480px of scroll
+      if(!mobile && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+        var stage = c.parentNode, tick = false;
+        addEventListener('scroll', function(){ if(tick) return; tick = true; requestAnimationFrame(function(){
+          stage.style.transform = 'translateY(' + (Math.min(480, scrollY) / 480 * 24) + 'px)'; tick = false; }); }, {passive:true});
+      }
     }
   })();
 </script>
