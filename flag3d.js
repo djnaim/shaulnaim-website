@@ -165,7 +165,7 @@
       return { p: new Float32Array(p), n: new Float32Array(n), i: new Uint16Array(ix) };
     }
     var pr = 0.045;
-    var poleM = cylinder(pr, -3.4, top + 0.16, 24), ballM = sphere(pr * 2.3, -pr * 1.2, top + 0.16 + pr * 2.1, 18);
+    var poleM = cylinder(pr, -3.4, top + 0.16, 24), ballM = sphere(pr * 1.65, -pr * 1.2, top + 0.16 + pr * 1.55, 40);
     function meshBufs(m) { return { p: buf(m.p, gl.STATIC_DRAW), n: buf(m.n, gl.STATIC_DRAW),
       i: (function () { var b = gl.createBuffer(); gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, b); gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, m.i, gl.STATIC_DRAW); return b; })(), c: m.i.length }; }
     var pole = meshBufs(poleM), ball = meshBufs(ballM);

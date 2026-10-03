@@ -37,7 +37,7 @@ function applyLang(l){
   document.querySelectorAll('[data-he]').forEach(el=>{ const v = el.dataset[l]; if(v != null) el.textContent = v; });
   document.querySelectorAll('[data-he-aria]').forEach(el=>{ const v = el.dataset[l+'Aria']; if(v != null) el.setAttribute('aria-label', v); });
   const lt = document.getElementById('langToggle');
-  lt.textContent = (l === 'he') ? 'EN' : 'עב';
+  lt.textContent = (l === 'he') ? 'English' : 'עברית';
   lt.setAttribute('aria-pressed', String(l === 'en'));
   renderGrid();
   renderAlbums();
