@@ -604,3 +604,52 @@ body:has(.hero-v3.cinema) .nav{background:rgba(255,255,255,.78);backdrop-filter:
   .cinema .hv3-text::before{height:66%;background:linear-gradient(180deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.82) 38%,rgba(255,255,255,.95) 70%,#fff 100%)}
 }
 .cinema .hv3-flag .flag-still{object-fit:cover}
+
+/* ================================================================
+   HERO CINEMA v4 (Astra critique, 10/3): one lit opening shot
+   ================================================================ */
+/* a soft pool of light behind the lettering, the cloth stays visible around it */
+.cinema .hv3-text::before{display:none}
+.cinema .hv3-grid::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:radial-gradient(ellipse 560px 230px at 50% 74%,rgb(255 255 255/.90) 0%,rgb(255 255 255/.78) 35%,rgb(255 255 255/.28) 65%,transparent 100%)}
+.cinema .hv3-text{z-index:3;padding-bottom:8svh}
+/* refined Hebrew: the name as a signature, the Psalm as its answer */
+.cinema .hv3-name{font-weight:700;font-size:clamp(88px,9.5vw,152px);line-height:1.02;letter-spacing:0;word-spacing:.02em;color:#0038B8}
+.cinema .hv3-psalm{font-weight:500;font-size:clamp(32px,3vw,46px);line-height:1.2;margin-top:12px;color:#15284B}
+.cinema .hv3-psalm .w:nth-child(5){color:#0038B8}
+.cinema .hv3-desc{font-family:"Heebo",sans-serif;font-weight:400;font-size:17px;line-height:26px;color:#425573;margin-top:20px}
+.cinema .hv3-desc .stripes2{width:22px;height:8px;
+  background:linear-gradient(#0038B8,#0038B8) 0 0/100% 1.5px no-repeat,linear-gradient(#0038B8,#0038B8) 0 6px/100% 1.5px no-repeat}
+/* the Psalm arrives as one complete thought */
+@media (prefers-reduced-motion: no-preference){
+  .hv3-psalm .w{opacity:1;transform:none;animation:none}
+  .cinema .hv3-psalm{opacity:0;transform:translateY(4px);animation:psalmIn .7s var(--v3-ease) .3s forwards}
+}
+/* one musical invitation */
+.hv3-listen{display:inline-flex;align-items:center;gap:9px;min-height:44px;margin-top:20px;color:#0038B8;text-decoration:none;
+  font-family:"Heebo",sans-serif;font-weight:500;font-size:15px;background:none;border:0;transition:color .18s ease-out}
+.hv3-listen svg{width:10px;height:10px;fill:currentColor;transition:transform .18s ease-out}
+.hv3-listen:hover{color:#00268A}.hv3-listen:hover svg{transform:translateX(2px)}
+.hv3-listen span{border-bottom:1px solid rgba(0,56,184,.35);padding-bottom:2px}
+/* pause: a quiet utility */
+.cinema .motion-v3{background:none;border-radius:0;font-size:13px;min-height:44px;bottom:calc(16px + env(safe-area-inset-bottom))}
+/* header integrated with the scene; double-stripe details at a matching scale */
+body:has(.hero-v3.cinema) .nav:not(.scrolled){background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(255,255,255,0));
+  backdrop-filter:none;-webkit-backdrop-filter:none;border-bottom:0}
+body:has(.hero-v3.cinema) .nav.scrolled{background:rgba(255,255,255,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.brand{font-weight:700!important;font-size:22px!important}
+.nav nav a{font-weight:400!important;font-size:15px!important}
+.nav-toggle{border:0!important;width:44px;height:44px}
+body:has(.hero-v3.cinema) .thread,body:has(.hero-v3.cinema) .thread-bead{display:none}
+@media (max-width:767px){
+  .hero-v3.cinema{height:100svh}
+  .cinema .hv3-text{top:55svh;bottom:auto;justify-content:flex-start;padding:0 20px}
+  .cinema .hv3-grid::after{background:radial-gradient(ellipse 340px 190px at 50% 66%,rgb(255 255 255/.92) 0%,rgb(255 255 255/.8) 35%,rgb(255 255 255/.3) 65%,transparent 100%)}
+  .cinema .hv3-name{font-size:clamp(58px,18.6vw,78px)}
+  .cinema .hv3-psalm{font-size:clamp(25px,7.4vw,31px)}
+  .cinema .hv3-desc{font-size:16px;line-height:24px;margin-top:12px}
+}
+.cinema .hv3-grid::after{background:radial-gradient(ellipse 820px 330px at 50% 76%,rgb(255 255 255/.96) 0%,rgb(255 255 255/.9) 38%,rgb(255 255 255/.55) 62%,rgb(255 255 255/.12) 82%,transparent 100%)}
+@media (max-width:767px){
+  .cinema .hv3-grid::after{background:radial-gradient(ellipse 340px 190px at 50% 66%,rgb(255 255 255/.92) 0%,rgb(255 255 255/.8) 35%,rgb(255 255 255/.3) 65%,transparent 100%)}
+}
