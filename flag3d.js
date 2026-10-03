@@ -30,7 +30,7 @@
     });
     g.setTransform(1, 0, 0, 1, 0, 0);
     // woven fabric: fine warp + weft
-    g.globalAlpha = 0.045; g.fillStyle = '#0A1E4A';
+    g.globalAlpha = 0.012; g.fillStyle = '#0A1E4A';
     for (var y = 0; y < S; y += 3) g.fillRect(0, y, S, 1);
     for (var x = 0; x < S; x += 3) g.fillRect(x, 0, 1, S);
     g.globalAlpha = 1;
@@ -38,7 +38,7 @@
     var sl = S * 0.05, sg = g.createLinearGradient(0, 0, sl, 0);
     sg.addColorStop(0, 'rgba(10,30,74,.20)'); sg.addColorStop(.6, 'rgba(10,30,74,.03)'); sg.addColorStop(1, 'rgba(10,30,74,0)');
     g.fillStyle = sg; g.fillRect(0, 0, sl, S);
-    g.fillStyle = 'rgba(10,30,74,.18)'; g.fillRect(sl, 0, 2, S); g.fillRect(S - 10, 0, 2, S);
+    g.fillStyle = 'rgba(10,30,74,.08)'; g.fillRect(sl, 0, 2, S); g.fillRect(S - 10, 0, 2, S);
     for (var yy = 4; yy < S; yy += 10) { g.fillRect(sl + 5, yy, 1.5, 5); g.fillRect(S - 6, yy, 1.5, 5); }
     return c;
   }
@@ -64,24 +64,28 @@
   ].join('\n');
   var FS = [
     'precision mediump float;',
-    'uniform sampler2D uTex; uniform int uMode; uniform vec3 uEye; uniform vec3 uTint;',
+    'uniform sampler2D uTex; uniform int uMode; uniform vec3 uEye; uniform vec3 uTint; uniform vec2 uRes;',
     'varying vec3 vN; varying vec2 vUV; varying vec3 vW;',
+    'vec3 shoulder(vec3 c){ float m=max(c.r,max(c.g,c.b)); if(m>0.8){ c*= (0.8+0.2*(1.0-exp(-(m-0.8)/0.2)))/m; } return c; }',
     'void main(){',
     '  vec3 N=normalize(vN); vec3 V=normalize(uEye-vW);',
-    '  if(dot(N,V)<0.0) N=-N;',                                   // two-sided cloth
-    '  vec3 L=normalize(vec3(-0.45,0.75,0.65));',                 // key light: high, front-left
-    '  vec3 H=normalize(L+V);',
-    '  float nl=dot(N,L);',
+    '  if(dot(N,V)<0.0) N=-N;',
+    '  vec3 L=normalize(vec3(-0.35,0.80,0.45));',                 // broad, soft key
+    '  vec3 H=normalize(L+V); float nl=dot(N,L);',
     '  if(uMode==0){',
-    '    vec3 base=texture2D(uTex,vUV).rgb;',
-    '    float wrap=max(0.0,(nl+0.4)/1.4);',
-    '    float sheen=pow(max(dot(N,H),0.0),36.0)*0.28;',          // silk highlight
-    '    float trans=max(0.0,-nl)*0.18;',                          // light through the cloth
-    '    float rim=pow(1.0-max(dot(N,V),0.0),3.0)*0.10;',
-    '    vec3 col=base*(0.60+0.50*wrap)+vec3(sheen)+base*trans+vec3(rim);',
-    '    col=mix(col, col*vec3(0.93,0.95,1.0), 1.0-wrap);',       // cool, never grey, shadows
-    '    gl_FragColor=vec4(min(col,vec3(1.0)),1.0);',
-    '  } else {',                                                  // metal: pole (silver) / finial (gold)
+    '    vec3 base=pow(texture2D(uTex,vUV).rgb,vec3(2.2));',        // decode to linear
+    '    float wrap=max(0.0,(nl+0.6)/1.6);',
+    '    vec3 amb=vec3(0.716,0.791,0.913);',                         // cool ambient #DCE6F5
+    '    float sheen=pow(max(dot(N,H),0.0),12.0)*0.045;',
+    '    float trans=max(0.0,-nl)*0.06;',
+    '    float rim=pow(1.0-max(dot(N,V),0.0),3.0)*0.025;',
+    '    vec3 col=base*(0.40*amb+0.62*wrap)+vec3(sheen)+base*trans+vec3(rim);',
+    '    col=shoulder(col);',
+    '    vec2 suv=gl_FragCoord.xy/uRes;',                            // quiet the periphery
+    '    float edge=smoothstep(0.55,1.0,max(abs(2.0*suv.x-1.0),abs(2.0*suv.y-1.0)));',
+    '    col=mix(col,vec3(0.855,0.906,1.0),0.10*edge);',
+    '    gl_FragColor=vec4(pow(col,vec3(1.0/2.2)),1.0);',            // encode once
+    '  } else {',
     '    float d=max(nl,0.0); float s=pow(max(dot(N,H),0.0),70.0);',
     '    float env=0.5+0.5*N.y;',
     '    vec3 col=uTint*(0.35+0.55*d+0.25*env)+vec3(s)*0.9;',
@@ -104,7 +108,7 @@
     gl.useProgram(prog);
     var A = { pos: gl.getAttribLocation(prog, 'aPos'), nor: gl.getAttribLocation(prog, 'aNor'), uv: gl.getAttribLocation(prog, 'aUV') };
     var U = { P: gl.getUniformLocation(prog, 'uP'), V: gl.getUniformLocation(prog, 'uV'), tex: gl.getUniformLocation(prog, 'uTex'),
-              mode: gl.getUniformLocation(prog, 'uMode'), eye: gl.getUniformLocation(prog, 'uEye'), tint: gl.getUniformLocation(prog, 'uTint') };
+              mode: gl.getUniformLocation(prog, 'uMode'), res: gl.getUniformLocation(prog, 'uRes'), eye: gl.getUniformLocation(prog, 'uEye'), tint: gl.getUniformLocation(prog, 'uTint') };
 
     /* ---- texture ---- */
     var tex = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tex);
@@ -179,7 +183,7 @@
       gustNow += (gustTarget - gustNow) * Math.min(1, dt / (gustTarget > gustNow ? 0.18 : 1.0));
       gustTarget *= Math.max(0, 1 - dt / 0.6);
       wind = Math.min(1.10, baseWind + gustNow);
-      var gust = 1 + 0.45 * Math.sin(t * 0.55) + 0.25 * Math.sin(t * 1.7 + 1.1);   // breathing gusts
+      var gust = 1 + 0.22 * Math.sin(t * 0.35) + 0.08 * Math.sin(t * 0.9 + 1.1);   // breathing gusts
       var Wx = 14 * wind * gust, Wy = 0.6 * Math.sin(t * 0.8), Wz = 1.1 * wind * Math.sin(t * 0.37);
       F.fill(0);
       var drag = 0.11, lift = 0.02;
@@ -190,9 +194,9 @@
         var area2 = Math.hypot(nx, ny, nz) || 1e-6; nx /= area2; ny /= area2; nz /= area2;
         // travelling turbulence: eddies roll from the pole to the fly end
         var mx = (P[a] + P[b] + P[c]) / 3, my = (P[a+1] + P[b+1] + P[c+1]) / 3;
-        var turb = noise(mx * 1.4 - t * 2.6, my * 1.6, t * 0.9);
+        var turb = noise(mx * 1.4 - t * 1.5, my * 1.6, t * 0.55);
         var vx = (P[a]-O[a] + P[b]-O[b] + P[c]-O[c]) / (3 * dt), vy = (P[a+1]-O[a+1] + P[b+1]-O[b+1] + P[c+1]-O[c+1]) / (3 * dt), vz = (P[a+2]-O[a+2] + P[b+2]-O[b+2] + P[c+2]-O[c+2]) / (3 * dt);
-        var rx = Wx * (1 + 0.35 * turb) - vx, ry = Wy - vy, rz = Wz + 2.4 * wind * turb - vz;
+        var rx = Wx * (1 + 0.35 * turb) - vx, ry = Wy - vy, rz = Wz + 1.8 * wind * turb - vz;
         var dn = rx * nx + ry * ny + rz * nz;
         var f = drag * dn * Math.abs(dn) * area2 * 0.5;
         var fx = f * nx + lift * rx * area2, fy = f * ny + lift * ry * area2, fz = f * nz + lift * rz * area2;
@@ -233,11 +237,16 @@
     }
 
     /* ---- camera: low, heroic, three-quarter ---- */
-    var eye = opts.eye || [-1.1, -1.05, 4.75], target = opts.target || [1.75, 0.22, 0.1];
+    var eye0 = opts.eye || [-1.1, -1.05, 4.75], eye = eye0.slice(), drift = small ? 0.5 : 1, target = opts.target || [1.75, 0.22, 0.1];
     function draw() {
-      var w = canvas.clientWidth, h = canvas.clientHeight, dpr = Math.min(global.devicePixelRatio || 1, small ? 1 : 1.5);
+      var w = canvas.clientWidth, h = canvas.clientHeight, dpr = Math.min(global.devicePixelRatio || 1, small ? 1.25 : 1.5);
       if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) { canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr); }
+      var P2 = Math.PI * 2;
+      eye[0] = eye0[0] + 0.035 * drift * Math.sin(P2 * t / 32);
+      eye[1] = eye0[1] + 0.018 * drift * Math.sin(P2 * t / 41);
+      eye[2] = eye0[2] + 0.045 * drift * Math.sin(P2 * t / 38);
       gl.viewport(0, 0, canvas.width, canvas.height);
+      gl.uniform2f(U.res, canvas.width, canvas.height);
       gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
       gl.enable(gl.DEPTH_TEST);
       gl.uniformMatrix4fv(U.P, false, new Float32Array(persp(opts.fov || 0.62, canvas.width / canvas.height, 0.1, 50)));
@@ -246,8 +255,8 @@
       // cloth
       normals();
       gl.uniform1i(U.mode, 0); gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, tex); gl.uniform1i(U.tex, 0);
-      gl.bindBuffer(gl.ARRAY_BUFFER, bPos); gl.bufferData(gl.ARRAY_BUFFER, P, gl.DYNAMIC_DRAW); gl.enableVertexAttribArray(A.pos); gl.vertexAttribPointer(A.pos, 3, gl.FLOAT, false, 0, 0);
-      gl.bindBuffer(gl.ARRAY_BUFFER, bNor); gl.bufferData(gl.ARRAY_BUFFER, NOR, gl.DYNAMIC_DRAW); gl.enableVertexAttribArray(A.nor); gl.vertexAttribPointer(A.nor, 3, gl.FLOAT, false, 0, 0);
+      gl.bindBuffer(gl.ARRAY_BUFFER, bPos); gl.bufferSubData(gl.ARRAY_BUFFER, 0, P); gl.enableVertexAttribArray(A.pos); gl.vertexAttribPointer(A.pos, 3, gl.FLOAT, false, 0, 0);
+      gl.bindBuffer(gl.ARRAY_BUFFER, bNor); gl.bufferSubData(gl.ARRAY_BUFFER, 0, NOR); gl.enableVertexAttribArray(A.nor); gl.vertexAttribPointer(A.nor, 3, gl.FLOAT, false, 0, 0);
       gl.bindBuffer(gl.ARRAY_BUFFER, bUV); gl.enableVertexAttribArray(A.uv); gl.vertexAttribPointer(A.uv, 2, gl.FLOAT, false, 0, 0);
       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, bIdx); gl.drawElements(gl.TRIANGLES, IND.length, gl.UNSIGNED_SHORT, 0);
       // pole + finial
@@ -265,7 +274,7 @@
     var raf = 0, running = false, paused = false, last = 0, acc = 0, visible = true, warm = 0, lastDraw = 0;
     var FIX = 1 / 120, minFrame = small ? 1000 / 30 : 0;
     function warmup(done) {           // settle the cloth in small batches so the page never stalls
-      var n = 0; while (warm < 240 && n < 40) { step(FIX); warm++; n++; }
+      var t0 = global.performance ? performance.now() : 0; while (warm < 240 && (!global.performance || performance.now() - t0 < 3)) { step(FIX); warm++; }
       if (warm < 240) global.requestAnimationFrame(function () { warmup(done); }); else done();
     }
     function frame(ts) {
