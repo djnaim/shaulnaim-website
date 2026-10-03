@@ -276,7 +276,7 @@ a.card:hover .card-title{background-position:-60% 0}
 /* ---------- about: printed photo plate on stone ---------- */
 .about{background:var(--stone);color:var(--ink)}
 .about-inner{display:flex;gap:60px;align-items:flex-start;flex-wrap:wrap;justify-content:center;max-width:1000px;margin:0 auto}
-.about .portrait{width:300px;height:380px;object-fit:cover;object-position:center 30%;border-radius:0;
+.about .portrait{display:block;width:360px;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:center top;border-radius:0;
   border:1px solid var(--brass)}
 .portrait-plate{position:relative}
 .portrait-plate .cap{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
@@ -428,7 +428,7 @@ footer .small a:hover{color:var(--pom-700)}
   .nav nav a{margin-inline-start:12px;font-size:11px}
   .hero{padding:120px 22px 80px;min-height:92vh}
   .about-inner{justify-content:center}
-  .about .portrait{width:230px;height:300px}
+  .about .portrait{width:min(320px,100%)}
   .detail-panel{padding:120px 22px 50px}
   .detail-body{padding:52px 22px 76px}
 }
